@@ -1,6 +1,4 @@
 import React from "react";
-import image1  from "../assets/images/image1.jpg";
-import image2 from "../assets/images/image2.jpg"
 import { Link } from "react-router-dom";
 
 const PostList = (props) => {
@@ -18,8 +16,8 @@ const PostList = (props) => {
                         <h3>{postTitle}</h3>
                     </div>
                     <div className="container">
-                        <img className="img-fluid" src={image1}/>
-                        {/* <p>{postImage}</p> */}
+                        <img className="img-fluid" src={props.image}/>
+                        <p>{props.image}</p>
                     </div>
                     <div className="d-flex justify-content-between">
                         <Link to={`/post/${props.id}`}>

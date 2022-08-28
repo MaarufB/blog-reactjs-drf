@@ -1,14 +1,7 @@
 import axios from "axios";
-import { param } from "jquery";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-
-// const HandleAction = (props) => {
-//     const action
-
-// }
-
 
 const PostForm = () =>{
     // parameters passed by url
@@ -18,13 +11,15 @@ const PostForm = () =>{
     const navigate = useNavigate();
 
     // Base URL
-    const baseURL = "http://127.0.0.1:8000/api";
+    const baseURL = "/api";
 
     const [post, setPost] = useState({
         user: 1,
         post_title: "",
         body: ""
     });
+    const [actionType, setActionType] = useState("post");
+
     const [inputs, setInputs] = useState({
 
     });
@@ -37,6 +32,8 @@ const PostForm = () =>{
             fetchPost();
         }
         else return
+        // if (params.id && params.delete => setActionType("delete")
+
     },[]);
 
     const fetchPost = async () => {
@@ -53,36 +50,37 @@ const PostForm = () =>{
     const handleChange = (event) => {
         // setImage(event.target.files[0]); 
         const handledData = {...post, [event.target.name]:event.target.value};
-        
-        console.log(handledData);
         setPost(handledData);   
-        console.log(post); 
+        if (event.target.name == "image"){
+            setImage(event.target.files[0]);
+        }
     }
 
 
     // This function will handle the submit button (CRUD), depends on the condition
     const handleSubmit = (event) => {
         event.preventDefault();
-        // console.log(event);
-        // console.log(post);
-        createPost();
+        
+        if (!params.id) {
+            console.log("Add");
+            createPost();
+        }
+        else if(params.id && !params.delete){
+            console.log("Update");
+            updatePost();
+            navigate("/");
+        }
+        else if(params.id && params.delete){
+            console.log("Delete");
+            deletePost();
+
+        }
 
     }
 
 
     // Will handle the Post request to the backend side(Create posts);
-    const createPost = async (event) => {
-        // event.preventDefault();
-        
-        const targetFormat = {
-            "id": 15,
-            "user": null,
-            "post_title": null,
-            "body": null,
-            // "image": null,
-            // "comments": []
-        }
-
+    const createPost = async () => {
 
         const formData = new FormData();
         
@@ -90,9 +88,13 @@ const PostForm = () =>{
         formData.append('post_title', post.post_title);
         formData.append('body', post.body);
         formData.append('user', post.user);
+        formData.append('image', image);
 
-        await axios.post(`${baseURL}/blog/`,formData)
-            .then(({data}) => {
+        await axios.post(`${baseURL}/blog/`,formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            }).then(({data}) => {
                 navigate("/");
                 console.log(data);
             })
@@ -103,21 +105,40 @@ const PostForm = () =>{
 
     const updatePost = async () => {
 
-        return {
-            action: "Update Post"
+        const formData = new FormData();
+        
+        // append form Inputs
+        formData.append('post_title', post.post_title);
+        formData.append('body', post.body);
+        formData.append('user', post.user);
+        if(image!==null){
+            formData.append('image', image);
         }
+
+        await axios.put(`${baseURL}/blog/${params.id}/`,formData)
+            .then(({data}) => {
+                console.log("Update");
+                navigate("/");
+            })
+            .catch(({response}) => {
+                console.log(response);
+            })
     }
 
     const deletePost = async () => {
-
-        return {
-            action: "Delete Post"
-        }
+        await axios.delete(`${baseURL}/blog/${params.id}/`)
+            .then((data) => {
+                console.log(data);
+                navigate("/");
+            })
+            .catch(({response:{data}}) => {
+                console.log(data.message)
+            });
     }
 
     const handleAction = () => {
         if(!params.id){
-            console.log("Add form")
+            // console.log("Add form")
             return(
             <button 
             className="btn btn-dark"
@@ -168,10 +189,23 @@ const PostForm = () =>{
                             value={post?.body}
                             placeholder="Description" />
                     </div>
+
+                    <div className="m-2">
+                        <label className="form-label">Image</label>
+                        <input 
+                            className="form-control"
+                            name="image"
+                            type="file"
+                            accept="image/jpeg,image/png,image/gif"
+                            onChange={handleChange}
+                            // value={image?.body}
+                            placeholder="Image" />
+                    </div>
+
                     <div className="d-flex justify-content-between m-2 p-2">
                         {handleAction()}
                         <Link to={"/"}>
-                            <button className="btn btn-dark" onClick={handleSubmit}>Cancel</button>
+                            <button className="btn btn-dark">Cancel</button>
                         </Link>
                     </div>             
                 </form>
