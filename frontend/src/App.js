@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+
+// import './App.css';
+import Navbar from './components/Navbar';
+import MainContent from './components/MainContent';
+import PostView from './components/PostView';
+import PostForm from "./components/PostForm";
+
+import {Routes, Route, BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+        <Routes>
+          <Route path="/" element={<MainContent />}></Route>
+          {/* <Route path="/post" element={<MainContent />}></Route> */}
+          <Route path="/post/create" element={<PostForm />}></Route>
+          <Route path="/post/update/:id" element={<PostForm />}></Route>
+          <Route path="/post/:delete/:id" element={<PostForm />}></Route>
+          <Route path="/post/:id" element={<PostView />}></Route>
+
+        </Routes>
+      </BrowserRouter>
   );
 }
 
