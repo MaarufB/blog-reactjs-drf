@@ -34,13 +34,13 @@ class Comment(models.Model):
         db_table = "comment"
         ordering = ['-comment_date']
 
-    def __str__(self):
-        summary = None
-        if len(self.comment_text) > 10:
-            return self.comment_text
-        else:
-            summary = f"{self.post.user} comment"
-        return summary
+    # def __str__(self):
+    #     summary = None
+    #     if len(self.comment_text) > 10:
+    #         return self.comment_text
+    #     else:
+    #         summary = f"{self.post.user} comment"
+        # return summary
 
 class SubComment(models.Model):
     comment_id: Comment =models.ForeignKey(Comment, on_delete=models.CASCADE, null=True)
