@@ -6,7 +6,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 const PostForm = () =>{
     // parameters passed by url
     const params = useParams();
-    console.log(params);
+    // console.log(params);
     // Handle Navigation
     const navigate = useNavigate();
 
@@ -163,8 +163,8 @@ const PostForm = () =>{
     }
 
     return(
-    <div className="container border border-danger">
-        <h2 className="text-center">Custom Form</h2>
+    <div className="container mt-4">
+        <h2 className="text-center">Create Post</h2>
         
         <div className="row justify-content-center">
             <div className="col-md-7 border-radius">
