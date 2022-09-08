@@ -6,8 +6,8 @@ const PostList = (props) => {
     
     return (
         <div className="row justify-content-center">
-            <div className="col-lg-9 col-sm-9 col-md-9 col-9 my-2 border border-danger">
-                <div className="container mt-3 mb-3 p-1 border border-danger">                                           
+            <div className="col-lg-9 col-sm-9 col-md-9 col-9 my-2">
+                <div className="container mt-3 mb-3 p-1">                                           
                     <div className="mb-3">
                         <p className="fw-lighter m-0">June 12,2021</p>
                         <p className="fw-bold m-0">Ma-aruf Burad</p>

@@ -1,17 +1,16 @@
-# from django.http import JsonResponse
-# from django.shortcuts import render
-# from django.contrib.auth.models import User, Group
-# from rest_framework import viewsets
-from .serializers import RegisterUserSerializer, UserSerializer, GroupSerializer
+from .serializers import (
+    RegisterUserSerializer, 
+    UserSerializer, 
+    GroupSerializer)
 
 from .models import Post, Comment, SubComment
 from .serializers import PostSerializer, CommentsSerializer
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
-# from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-# from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from django.http import Http404
 
@@ -26,41 +25,53 @@ from api import serializers
 from asgiref.sync import sync_to_async
 
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import api_view
 
+#generic view
+from rest_framework import generics
+from django.contrib.auth.models import User
 
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
 
-# import Helpers module
-# from Helpers import get_object
+        # Add custom claims
+        token['username'] = user.username
+        # ...
+        return token
 
+@api_view(['GET'])
+def getRoutes(request):
+    routes = [
+        '/api/token/',
+        '/api/register/',
+        '/api/token/refresh/',
+    ]
+    return Response(routes)
 
-# class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-#     @classmethod
-#     def get_token(cls, user):
-#         token = super().get_token(user)
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
-#         # Add custom claims
-#         token['username'] = user.username
-#         # ...
-#         return token
-
-# class MyTokenObtainPairView(TokenObtainPairView):
-#     serializer_class = MyTokenObtainPairSerializer
-
-# class RegisterAPIView(APIView):
-#     authentication_classes = []
+class RegisterAPIView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterUserSerializer
+    # authentication_classes = []
     
-#     def post(self, request, *args, **kwargs):
-#         serializer = RegisterUserSerializer(data=request.data)
 
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+    # def post(self, request, *args, **kwargs):
+    #     serializer = RegisterUserSerializer(data=request.data)
+
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
         
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
-# class LoginAPIView(TokenObtainPairView):
-#     serializer_class = MyTokenObtainPairSerializer
+class LoginAPIView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 class BlogListAPIView(APIView):
     # permission_classes = (IsAuthenticated,)
@@ -138,8 +149,6 @@ class PostCommentGetPostAPI(APIView):
         return Response(comment_serializer.data)
     
     def post(self, request, format=None):
-        context = {}
-
         comment_serializer = CommentsSerializer(data=request.data)
 
         # test the incoming request data
@@ -150,7 +159,7 @@ class PostCommentGetPostAPI(APIView):
             comment_list = Comment.objects.all()
             comment_list_serializer = CommentsSerializer(instance=comment_list, many=True)
     
-            return Response(comment_serializer.data, status=status.HTTP_201_CREATED)
+            return Response(comment_list_serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(comment_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

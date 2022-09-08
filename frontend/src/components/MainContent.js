@@ -25,7 +25,7 @@ const MainContent = () => {
     }
 
     return (
-    <div className="container mt-3 border border-primary">
+    <div className="container mt-3 border shadow">
         {posts.map(item => (
                 <PostList 
                     key={item.id}

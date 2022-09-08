@@ -111,7 +111,7 @@ const PostForm = () =>{
         formData.append('post_title', post.post_title);
         formData.append('body', post.body);
         formData.append('user', post.user);
-        if(image!==null){
+        if(image!=null){
             formData.append('image', image);
         }
 

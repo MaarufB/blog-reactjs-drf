@@ -20,7 +20,6 @@ const PostView = (props) => {
         user: 1
     }
     );
-
     useEffect(() => {
         fetchPostById(params.id);
     }, []);
@@ -53,23 +52,23 @@ const PostView = (props) => {
         }).then(({data}) => {
             console.log(data);
             comment.comment_text = "";
+            setCommentList(data);
 
         }).catch(({response}) => {
             console.log(response);
         })
-
-
-
     }
 
     const handleChange = (event) => {
         setComment({...comment, [event.target.name]:event.target.value})
-        console.log(comment);
+        // console.log(comment);
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        createComment();
+        if (!comment.comment_text =="" || !comment.comment_text == null){
+            createComment();
+        }   
     }
 
     return (
