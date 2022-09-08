@@ -53,29 +53,32 @@ const NavBar = () =>{
                                         Logout
                                     </p>
                                 </li>
-                                {/* <li className="nav-item">
-                        <a className="nav-link" href="#">Link</a>
-                    </li> */}
-                                {/* <li className="nav-item">
-                        <a className="nav-link disabled">Disabled</a>
-                    </li> */}
-                                <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-                                    <ul className="dropdown-menu">
-                                        <li><a className="dropdown-item" href="#">Action</a></li>
-                                        <li><a className="dropdown-item" href="#">Another action</a></li>
-                                        <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            {/* <form role="search">
-                        <input 
-                            className="form-control" 
-                            type="search" 
-                            placeholder="Search" 
-                            aria-label="Search" />
+                                        {/* <li className="nav-item">
+                                    <a className="nav-link" href="#">Link</a>
+                                </li> 
+                                    <li className="nav-item">
+                                    <a className="nav-link disabled">Disabled</a>
+                                </li> 
+                                            <li className="nav-item dropdown">
+                                                <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                                                <ul className="dropdown-menu">
+                                                    <li><a className="dropdown-item" href="#">Action</a></li>
+                                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                                </ul>
+                                            </li>
+                                        
+                                        <form role="search">
+                                    <input 
+                                        className="form-control" 
+                                        type="search" 
+                                        placeholder="Search" 
+                                        aria-label="Search" />
+                                    
+                            </form> 
+                            */}
                             
-                    </form> */}
+                            </ul>
                         </div>
                     </div>
                 </nav>

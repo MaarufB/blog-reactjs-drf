@@ -3,6 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { dummyPost } from "../dummy/dummyPost";
 import PostList from "./PostList";
+import { Outlet } from "react-router-dom";
 
 const MainContent = () => {
     const baseURL = "http://127.0.0.1:8000/api";
@@ -25,7 +26,7 @@ const MainContent = () => {
     }
 
     return (
-    <div className="container mt-3 border shadow">
+    <div className="container ">
         {posts.map(item => (
                 <PostList 
                     key={item.id}
@@ -35,6 +36,7 @@ const MainContent = () => {
                     titleDescription={item.body}
                 />
             ))}
+    {/* <Outlet /> */}
     </div>
     )
 }

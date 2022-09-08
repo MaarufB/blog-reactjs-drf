@@ -53,21 +53,21 @@ def getRoutes(request):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-class RegisterAPIView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    permission_classes = (AllowAny,)
-    serializer_class = RegisterUserSerializer
+class RegisterAPIView(APIView):
+    # queryset = User.objects.all()
+    # permission_classes = (AllowAny,)
+    # serializer_class = RegisterUserSerializer
     # authentication_classes = []
     
 
-    # def post(self, request, *args, **kwargs):
-    #     serializer = RegisterUserSerializer(data=request.data)
+    def post(self, request, *args, **kwargs):
+        serializer = RegisterUserSerializer(data=request.data)
 
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 class LoginAPIView(TokenObtainPairView):

@@ -72,7 +72,7 @@ const PostView = (props) => {
     }
 
     return (
-        <div className="container mt-3 p-3">
+        <div className="container mt-3 p-3 container mt-2 border shadow">
             <div className="container p-4">
                 <div className="row justify-content-center">
                     <div className="col-8">
