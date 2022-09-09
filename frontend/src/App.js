@@ -7,12 +7,17 @@ import LoginForm from './pages/LoginForm';
 import {Routes, Route, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './utils/PrivateRoute';
+import Footer from './components/Footer';
+//TEST modules
 
+import NavBarTest from './components/TestComponent/NavbarTest';
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        {/* TEST */}
+        {/* <NavBarTest /> */}
         <Navbar />
         <Routes>
           <Route path="/login" element={<LoginForm />} />
@@ -24,9 +29,9 @@ function App() {
               <Route path="/post/update/:id" element={<PostForm />}></Route>
               <Route path="/post/:delete/:id" element={<PostForm />}></Route>
               <Route path="/post/:id" element={<PostView />}></Route>
-
           </Route>
         </Routes>
+        <Footer />
       </AuthProvider>
       </BrowserRouter>
   );

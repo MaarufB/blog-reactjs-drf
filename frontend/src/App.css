@@ -1,38 +1,100 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Antonio&family=Bebas+Neue&family=Montserrat&family=Slabo+27px&display=swap');
+
+
+/* font-family: 'Anton', sans-serif;
+font-family: 'Antonio', sans-serif;
+font-family: 'Bebas Neue', cursive;
+font-family: 'Montserrat', sans-serif;
+font-family: 'Slabo 27px', serif; */
+
+:root {
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  
+    line-height: 1.7;
+    /* color: var(--body); */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1,h2,h3,h4,h5,h6,
+.display-4 {
+    font-family: 'Slabo 27px', serif;
+    color: var(--dark);
+    font-weight: 700;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+a {
+    color: var(--dark);
+    text-decoration: none;
 }
 
-.App-link {
-  color: #61dafb;
+.post-image {
+    width: 100%;
+    height: 1000;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-item{
+  margin-left: 20px;
+  margin-right: 30px;
+}
+
+/* style={{
+  // width:"auto",
+  // height: "300px"
+  width: "80%",
+  height: "100px"
+}} */
+
+/* .navbar {
+    box-shadow: var(--box-shadow);
+}
+
+
+.logo {
+    width: 160px;
+}
+
+.navbar .nav-link {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.navbar .nav-link.active {
+    color: var(--primary) !important;
+} */
+
+.btn {
+    padding: auto 10px;
+    border-width: 5px;
+    /* border-radius: 20px; */
+}
+
+.post-user{
+  font-family: 'Slabo 27px', serif;
+  font-size: 20px;
+  font-weight: 27px;
+}
+
+
+
+footer{
+  margin-top: 100px;
+}
+.footer-top {
+  padding-top:  100px;
+  padding-bottom: 90px;
+  background-color: var(--dark);
+}
+
+.footer-top a {
+  color: var(--body);
+}
+
+.footer-top a:hover {
+  color: var(--white);
+}
+
+.footer-bottom {
+  background-color: #242933;
 }

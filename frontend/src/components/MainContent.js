@@ -26,17 +26,21 @@ const MainContent = () => {
     }
 
     return (
-    <div className="container ">
-        {posts.map(item => (
-                <PostList 
-                    key={item.id}
-                    id={item.id}
-                    title={item.post_title}
-                    image={item.image}
-                    titleDescription={item.body}
-                />
-            ))}
-    {/* <Outlet /> */}
+    <div className="container mt-4">
+        <div className="row justify-content-center">
+            <div className="col-10">
+                {posts.map(item => (
+                        <PostList 
+                            key={item.id}
+                            id={item.id}
+                            title={item.post_title}
+                            image={item.image}
+                            body={item.body}
+                        />
+                    ))}
+            </div>
+                
+        </div>
     </div>
     )
 }

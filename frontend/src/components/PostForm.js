@@ -164,16 +164,16 @@ const PostForm = () =>{
 
     return(
     <div className="container mt-4">
-        <h2 className="text-center">Create Post</h2>
+        <h2 className="text-center header-text">Create Post</h2>
         
         <div className="row justify-content-center">
             <div className="col-md-7 border-radius">
-                <form className="form-group p-2 m-2 border shadow">
+                <form className="form-group p-2 m-2 border shadow input-form">
                     <div className="m-2">
                         <label className="form-label">Title</label>
                         
                         <input 
-                            className="form-control"
+                            className="form-control input-field"
                             name="post_title"
                             onChange={handleChange}
                             value={post?.post_title}
@@ -183,7 +183,7 @@ const PostForm = () =>{
                     <div className="m-2">
                         <label className="form-label">Description</label>
                         <input 
-                            className="form-control"
+                            className="form-control input-field"
                             name="body"
                             onChange={handleChange}
                             value={post?.body}
@@ -193,7 +193,7 @@ const PostForm = () =>{
                     <div className="m-2">
                         <label className="form-label">Image</label>
                         <input 
-                            className="form-control"
+                            className="form-control input-field"
                             name="image"
                             type="file"
                             accept="image/jpeg,image/png,image/gif"

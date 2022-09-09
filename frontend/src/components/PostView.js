@@ -72,70 +72,73 @@ const PostView = (props) => {
     }
 
     return (
-        <div className="container mt-3 p-3 container mt-2 border shadow">
-            <div className="container p-4">
-                <div className="row justify-content-center">
-                    <div className="col-8">
-                        <div className="container">
-                            <div className="mb-3">
-                                <p className="fw-lighter m-0">June 12,2021</p>
-                                <p className="fw-bold m-0">Ma-aruf Burad</p>
+        <div className="container mt-4">
+            <div className="row justify-content-center">
+                <div className="col-10">
+                    <div className="container mb-3 shadow">
+                        <div className="d-flex p-2">       
+                            <div className="row">
+                                <img
+                                    src="https://media-exp1.licdn.com/dms/image/C4D03AQEv-vwlqnX7Zw/profile-displayphoto-shrink_200_200/0/1622088978783?e=1668038400&v=beta&t=UFKCg2vcXrauuWsdrf9no_abwmTt54Nl63lsd31dV-w"
+                                    className="rounded-circle col"
+                                    height="50"
+                                    alt="Black and White Portrait of a Man"
+                                    loading="lazy"
+                                    />
+                                <p className="post-user col m-auto">maarufb</p>
+                            </div>
+                    
+                            <span className="ms-auto">...</span>
+                        </div>                            
+                        <div className="container justify-content-center p-4">
+                            <div className="col-12 mt-2">
+                                <h2 className="fw-bold mb-4">{post?.post_title}</h2>
+                                <p>{post?.body}</p>
+                            </div>
+                            <div className="col-12 p-3">
+                                <div className="d-flex justify-content-center">
+                                    <img className="img-fluid" 
+                                        src={post?.image} 
+                                        alt="post"
+                                        height="100"
+                                        width="720" />
+                               </div>
                             </div>
                         </div>
-                        <div className="container">
+                        {/* comment section */}
+                        <div className="container section-comment">
                             <div className="row justify-content-center">
-                                <div className="col-12 mt-2">
-                                    <h2 className="fw-bold mb-4">{post?.post_title}</h2>
-                                    {/* <p>
-                                        he talks about the side hustles and strange ways to have a healthy and constant income. The website talks about how the wife from the couple escaped her 9 to 5 job and how they have a stable income source without having a full-time job.
-                                    </p> */}
-                                    <p>{post?.body}</p>
+                                <div className="col-8">
+                                    {/* <form className="p-3"> */}
+                                        <textarea 
+                                            className="form-control" 
+                                            name="comment_text"
+                                            onChange={handleChange}
+                                            value={comment?.comment_text}
+                                            placeholder="Type your comment here..." 
+                                            rows="2">
+
+                                            </textarea>
+                                        <button 
+                                            className="btn btn-dark mt-2"
+                                            onClick={handleSubmit}>Post</button>
+                                    {/* </form> */}
+                                    <hr />
                                 </div>
-                                <div className="col-12 p-3">
-                                    <div className="d-flex justify-content-center">
-                                        <img className="img-fluid" 
-                                            src={post?.image} 
-                                            alt="post"
-                                            height="100"
-                                            width="720" />
-                                    </div>
-                                </div>
+                            </div>
+                            <div className="container p-4">
+                                <h2 className="text-center mb-3">Comments</h2>
+                                {commentList.map((item)=> (
+                                    <Comments 
+                                        key={item.id}
+                                        commentText={item.comment_text}>
+                                    </Comments>
+                                ))}                    
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-8">
-                        {/* <form className="p-3"> */}
-                            <textarea 
-                                className="form-control" 
-                                name="comment_text"
-                                onChange={handleChange}
-                                value={comment?.comment_text}
-                                placeholder="Type your comment here..." 
-                                rows="2">
-
-                                </textarea>
-                            <button 
-                                className="btn btn-primary mt-2"
-                                onClick={handleSubmit}>Post</button>
-                        {/* </form> */}
-                        <hr />
-                    </div>
-                </div>
-    
-                <div className="container p-4">
-                    <h2 className="text-center mb-3">Comments</h2>
-                    {commentList.map((item)=> (
-                        <Comments 
-                            key={item.id}
-                            commentText={item.comment_text}>
-                        </Comments>
-                    ))}                    
-                </div>
-            </div>
+            </div>            
         </div>
     )
 }

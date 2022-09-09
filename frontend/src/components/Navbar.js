@@ -11,12 +11,10 @@ const NavBar = () =>{
         user ? (
             <>
                 <nav
-                    className="navbar navbar-expand-lg navbar-dark bg-dark"
+                    className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark"
                     aria-label="Eighth navbar example">
 
                     <div className="container">
-                        {/* <Link to="/" className="navbar-brand">Blog</Link> */}
-
                         <button
                             className="navbar-toggler"
                             type="button"
@@ -29,10 +27,10 @@ const NavBar = () =>{
                         </button>
 
                         <div
-                            className="collapse navbar-collapse"
+                            className="collapse navbar-collapse justify-content-center"
                             id="navbarsExample07">
 
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <ul className="navbar-nav">
                                 <li className="nav-item">
                                     <Link to="/" className="nav-link active" aria-current="page">
                                         Home
@@ -80,6 +78,74 @@ const NavBar = () =>{
                             
                             </ul>
                         </div>
+                        <div className="d-flex align-items-center">
+      {/* <!-- Icon --> */}
+      <a className="link-secondary me-3" href="#">
+        <i className="fas fa-shopping-cart"></i>
+      </a>
+
+      {/* <!-- Notifications --> */}
+      <div className="dropdown">
+        <a  
+          className="link-secondary me-3 dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i className="fas fa-bell"></i>
+          <span className="badge rounded-pill badge-notification bg-success">1</span>
+        </a>
+        <ul
+          className="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <li>
+            <a className="dropdown-item" href="#">Some news</a>
+          </li>
+          <li>
+            <a className="dropdown-item" href="#">Another news</a>
+          </li>
+          <li>
+            <a className="dropdown-item" href="#">Something else here</a>
+          </li>
+        </ul>
+      </div>
+      {/* <!-- Avatar --> */}
+      <div className="dropdown">
+        <a
+          className="dropdown-toggle d-flex align-items-center hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuAvatar"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img
+            src="https://media-exp1.licdn.com/dms/image/C4D03AQEv-vwlqnX7Zw/profile-displayphoto-shrink_200_200/0/1622088978783?e=1668038400&v=beta&t=UFKCg2vcXrauuWsdrf9no_abwmTt54Nl63lsd31dV-w"
+            className="rounded-circle"
+            height="25"
+            alt="Black and White Portrait of a Man"
+            loading="lazy"
+          />
+        </a>
+        <ul
+          aria-labelledby="navbarDropdownMenuAvatar"
+          className="dropdown-menu dropdown-menu-end"
+        >
+          <li>
+            <a className="dropdown-item" href="#">My profile</a>
+          </li>
+          <li>
+            <a className="dropdown-item" href="#">Settings</a>
+          </li>
+          <li>
+            <a className="dropdown-item" href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
                     </div>
                 </nav>
             </>
