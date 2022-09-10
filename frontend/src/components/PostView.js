@@ -1,4 +1,5 @@
 import axios from "axios";
+// import { param } from "jquery";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -19,26 +20,25 @@ const PostView = (props) => {
     }
     );
     useEffect(() => {
-        const fetchPostById = async () => {
-            await axios.get(`${baseURL}/blog/${params.id}`)
-                .then(response => {
-                    setPost(response.data);
-                    const {comments, post_title} = response.data;
-                    setCommentList(comments);
-                    console.log(`Comments: ${commentList}`);
-                    console.log(post_title);
-                })
-                .catch(error =>{
-                    console.log(error);
-                })
-        }
+    
 
         if (params.id)
         {
             fetchPostById(params.id)
         }
-    }, [params.id, commentList]);
+    });
 
+    const fetchPostById = async () => {
+        await axios.get(`${baseURL}/blog/${params.id}`)
+            .then(response => {
+                setPost(response.data);
+                const {comments} = response.data;
+                setCommentList(comments);
+            })
+            .catch(error =>{
+                console.log(error);
+            })
+    }
 
 
     const createComment = async () => {
@@ -63,8 +63,9 @@ const PostView = (props) => {
     }
 
     const handleChange = (event) => {
-        setComment({...comment, [event.target.name]:event.target.value})
-        // console.log(comment);
+        setComment(
+            {...comment, [event.target.name]:event.target.value}
+            );
     }
 
     const handleSubmit = (event) => {
@@ -98,7 +99,7 @@ const PostView = (props) => {
                                 <h2 className="fw-bold mb-4">{post?.post_title}</h2>
                                 <p>{post?.body}</p>
                             </div>
-                            <div className="col-12 p-3">
+                            <div className="col-12">
                                 <div className="d-flex justify-content-center">
                                     <img className="img-fluid" 
                                         src={post?.image} 
