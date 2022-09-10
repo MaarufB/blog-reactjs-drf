@@ -1,15 +1,13 @@
 import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Comments from "./Comments";
 
 const PostView = (props) => {
     const baseURL = "/api";
 
     const params = useParams();
-    console.log(`ID ${params.id}`)
-    const navigate = useNavigate();
     
     const [post, setPost] = useState(null);
     const [commentList, setCommentList] = useState([]);
@@ -21,22 +19,27 @@ const PostView = (props) => {
     }
     );
     useEffect(() => {
-        fetchPostById(params.id);
-    }, []);
+        const fetchPostById = async () => {
+            await axios.get(`${baseURL}/blog/${params.id}`)
+                .then(response => {
+                    setPost(response.data);
+                    const {comments, post_title} = response.data;
+                    setCommentList(comments);
+                    console.log(`Comments: ${commentList}`);
+                    console.log(post_title);
+                })
+                .catch(error =>{
+                    console.log(error);
+                })
+        }
 
-    const fetchPostById = async () => {
-        await axios.get(`${baseURL}/blog/${params.id}`)
-            .then(response => {
-                setPost(response.data);
-                const {comments, post_title} = response.data;
-                setCommentList(comments);
-                console.log(`Comments: ${commentList}`);
-                console.log(post_title);
-            })
-            .catch(error =>{
-                console.log(error);
-            })
-    }
+        if (params.id)
+        {
+            fetchPostById(params.id)
+        }
+    }, [params.id, commentList]);
+
+
 
     const createComment = async () => {
         const formData = new FormData();
@@ -66,7 +69,7 @@ const PostView = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!comment.comment_text =="" || !comment.comment_text == null){
+        if (comment.comment_text !== "" || comment.comment_text != null){
             createComment();
         }   
     }
@@ -74,7 +77,7 @@ const PostView = (props) => {
     return (
         <div className="container mt-4">
             <div className="row justify-content-center">
-                <div className="col-10">
+                <div className="col-8">
                     <div className="container mb-3 shadow">
                         <div className="d-flex p-2">       
                             <div className="row">

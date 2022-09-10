@@ -1,9 +1,9 @@
 import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
-import { dummyPost } from "../dummy/dummyPost";
+// import { dummyPost } from "../dummy/dummyPost";
 import PostList from "./PostList";
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 
 const MainContent = () => {
     const baseURL = "http://127.0.0.1:8000/api";
@@ -28,7 +28,7 @@ const MainContent = () => {
     return (
     <div className="container mt-4">
         <div className="row justify-content-center">
-            <div className="col-10">
+            <div className="col-md-8 md-lg-8">
                 {posts.map(item => (
                         <PostList 
                             key={item.id}

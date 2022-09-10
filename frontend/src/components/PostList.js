@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-// import { useContext } from "react";
-// import AuthContext from "../context/AuthContext";
 import "../App.css";
 
 
@@ -23,13 +21,26 @@ const PostList = (props) => {
                         <p className="post-user col m-auto">maarufb</p>
                     </div>
                 </div>
-                <span className="ms-auto">...</span>
+                <span className="ms-auto">
+                    <p 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false"
+                        style={{
+                            cursor:"pointer"
+                        }}>....</p>
+                        
+                     <ul className="dropdown-menu">
+                        <li><span className="dropdown-item">Update</span></li>
+                        <li><span className="dropdown-item">Delete</span></li>
+                    </ul>
+                </span>
             </div>
             <div className="row justify-content-center">
                 <div className="col-md-4">
                     <img 
                         className="post-image"
                         src={props.image} 
+                        alt="post by the user"
                         />
                 </div>                    
                 <div className="col-md-8 mb-3">
@@ -39,7 +50,7 @@ const PostList = (props) => {
                     </div>
                     <div className="d-flex justify-content-end">
                         <Link to={`/post/${props.id}`}>
-                            <button className="btn btn-dark btn-view" style={{textDecoration:"underline"}}>View More</button>                            
+                            <button className="btn btn-dark btn-view bg-white text-dark border-0" style={{textDecoration:"underline"}}>View More</button>                            
                         </Link>
                                     {/* <Link to={`/post/update/${props.id}`}>
                                         <button className="btn btn-dark btn-update">Update</button>
@@ -49,6 +60,7 @@ const PostList = (props) => {
                                     </Link> */}
                    </div>
                 </div>
+                <span className="mb-3"></span>
             </div>
         </div>
         
@@ -56,5 +68,3 @@ const PostList = (props) => {
 }
 
 export default PostList;
-
-
