@@ -91,15 +91,22 @@ const PostView = (props) => {
                                     />
                                 <p className="post-user col m-auto">maarufb</p>
                             </div>
-                    
-                            <span className="ms-auto">...</span>
+                            <span className="ms-auto">
+                                <p 
+                                    data-bs-toggle="dropdown" 
+                                    aria-expanded="false"
+                                    style={{
+                                        cursor:"pointer"
+                                    }}>....</p>
+                                    
+                                <ul className="dropdown-menu">
+                                    <li><span className="dropdown-item">Update</span></li>
+                                    <li><span className="dropdown-item">Delete</span></li>
+                                </ul>
+                            </span>
                         </div>                            
-                        <div className="container justify-content-center p-4">
-                            <div className="col-12 mt-2">
-                                <h2 className="fw-bold mb-4">{post?.post_title}</h2>
-                                <p>{post?.body}</p>
-                            </div>
-                            <div className="col-12">
+                        <div className="row justify-content-center p-4">
+                            <div className="col-10">
                                 <div className="d-flex justify-content-center">
                                     <img className="img-fluid" 
                                         src={post?.image} 
@@ -108,29 +115,29 @@ const PostView = (props) => {
                                         width="720" />
                                </div>
                             </div>
+                            <div className="col-10 mt-3">
+                                <h2 className="fw-bold mb-4">{post?.post_title}</h2>
+                                <p>{post?.body}</p>
+                            </div>
                         </div>
+
                         {/* comment section */}
                         <div className="container section-comment">
                             <div className="row justify-content-center">
-                                <div className="col-8">
-                                    {/* <form className="p-3"> */}
-                                        <textarea 
-                                            className="form-control" 
-                                            name="comment_text"
-                                            onChange={handleChange}
-                                            value={comment?.comment_text}
-                                            placeholder="Type your comment here..." 
-                                            rows="2">
-
-                                            </textarea>
-                                        <button 
-                                            className="btn btn-dark mt-2"
-                                            onClick={handleSubmit}>Post</button>
-                                    {/* </form> */}
-                                    <hr />
+                                <div className="col-10">
+                                    <textarea 
+                                        className="form-control" 
+                                        name="comment_text"
+                                        onChange={handleChange}
+                                        value={comment?.comment_text}
+                                        placeholder="Type your comment here..." 
+                                        rows="2">
+                                        </textarea>
+                                    <button className="btn btn-dark mt-2" onClick={handleSubmit}>Submit</button>
+                                    {/* <hr /> */}
                                 </div>
                             </div>
-                            <div className="container p-4">
+                            <div className="container mt-3 mb-3">
                                 <h2 className="text-center mb-3">Comments</h2>
                                 {commentList.map((item)=> (
                                     <Comments 

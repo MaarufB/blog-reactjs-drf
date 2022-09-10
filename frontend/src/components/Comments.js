@@ -3,18 +3,37 @@ import React from "react";
 export default function Comments(props){
 
     return (
-        <div className="row m-3 justify-content-center">
-            <div className="col-8 p-2 mb-2">
-                <div className="">
-                    <p className="m-0" style={{fontWeight: "bold"}}>MA-ARUF BURAD SAYS</p>
-                    <p style={{fontStyle: "italic"}}>June 18, 2022</p>
-                    <div>
-                        <div>
-                            <p>{props.commentText}</p>
-                                {/* <p>he talks about the side hustles and strange ways to have a healthy and constant income. The website talks about how the wife from the couple escaped her 9 to 5 job and how they have a stable income source without having a full-time job. </p> */}
+        <div className="row justify-content-center shadow">
+            <div className="col-10 p-2">
+                <div className="container">
+                    <div className="d-flex p-2">
+                        <div className="row">
+                            <img
+                                src="https://media-exp1.licdn.com/dms/image/C4D03AQEv-vwlqnX7Zw/profile-displayphoto-shrink_200_200/0/1622088978783?e=1668038400&v=beta&t=UFKCg2vcXrauuWsdrf9no_abwmTt54Nl63lsd31dV-w"
+                                className="rounded-circle col"
+                                height="50"
+                                alt="Black and White Portrait of a Man"
+                                loading="lazy"
+                                />
+                            <p className="post-user col m-auto">maarufb</p>
                         </div>
+                        <span className="ms-auto">
+                            <p 
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false"
+                                style={{
+                                    cursor:"pointer"
+                                }}>....</p>
+                                
+                            <ul className="dropdown-menu">
+                                <li><span className="dropdown-item">Update</span></li>
+                                <li><span className="dropdown-item">Delete</span></li>
+                            </ul>
+                        </span>
+                    </div>
+                    <div className="container">
+                        <p>{props.commentText}</p>
                         <a href="#" style={{textDecoration:"underline"}}>Reply</a>
-                        <hr />
                     </div>
                 </div>
             </div>
