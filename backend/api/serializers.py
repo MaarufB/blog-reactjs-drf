@@ -2,9 +2,9 @@ from dataclasses import fields
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
-from .models import Post, Comment, SubComment
+from .models import Post, Comment, SubComment, UserProfile
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['url', 'username', 'email', 'groups']
@@ -50,6 +50,11 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
         return user
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('profile_pic',)
+
 class CommentsSerializer(serializers.ModelSerializer):
     # post_id = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
@@ -64,9 +69,10 @@ class CommentsSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     comments = CommentsSerializer(many=True, read_only=True)
-    
+    user = UserProfileSerializer(many=False, read_only=True)
+
     class Meta:
-        # user = serializers.ReadOnlyField(source='user.username')
+        user = serializers.ReadOnlyField(source='*')
         model = Post
         fields = ['id', 'user', 'post_title', 'body', 'image', 'comments']#'comments' add this comment
         # fields = '__all__'

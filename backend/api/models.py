@@ -6,8 +6,17 @@ def upload_to(instance, filename):
     return 'images/{filename}'.format(filename=filename)
 
 # Create your models here.
+
+def upload_profile(instance, filename):
+    return 'profile/{filename}'.format(filename=filename)
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_pic = models.ImageField(upload_to=upload_profile, null=True, blank=True)
+
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
     post_title = models.CharField(max_length=255, null=True)
     image = models.ImageField(upload_to=upload_to, blank=True, null=True) #default="uploads/default.jpg"
     body = models.TextField(null=True)
