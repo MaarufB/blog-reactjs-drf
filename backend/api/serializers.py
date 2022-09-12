@@ -74,10 +74,24 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         user = serializers.ReadOnlyField(source='*')
         model = Post
-        fields = ['id', 'user', 'post_title', 'body', 'image', 'comments']#'comments' add this comment
+        fields = (
+                    'id', 
+                    'user', 
+                    'post_title', 
+                    'body', 
+                    'image', 
+                    'comments'
+                )#'comments' add this comment
+        
         # fields = '__all__'
 
 class SubcomentSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubComment
-        fields = ('id', 'comment_id', 'comment_text', 'comment_image','comment_date')
+        fields = (
+                    'id', 
+                    'comment_id', 
+                    'comment_text', 
+                    'comment_image',
+                    'comment_date'
+                )
