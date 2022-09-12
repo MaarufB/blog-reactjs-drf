@@ -76,11 +76,15 @@ a {
   font-weight: 27px;
 }
 
-
-
-footer{
-  margin-top: 100px;
+.drop-item{
+  cursor: pointer;
 }
+
+
+/* footer{
+  margin-top: 100px;
+} */
+
 .footer-top {
   padding-top:  100px;
   padding-bottom: 90px;
@@ -97,4 +101,6 @@ footer{
 
 .footer-bottom {
   background-color: #242933;
+  padding: 30px;
+  margin-top: 50px;
 }

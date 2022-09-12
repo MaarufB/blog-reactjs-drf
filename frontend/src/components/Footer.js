@@ -5,7 +5,7 @@ export default function Footer() {
 
     return (
     <footer>
-        <div className="footer-bottom py-3">
+        <div className="footer-bottom mt-auto">
             <div className="container">
                 <div className="row">
                     <div className="col-md-8">

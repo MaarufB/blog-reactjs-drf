@@ -78,7 +78,7 @@ const PostForm = () =>{
 
     }
 
-
+    
     // Will handle the Post request to the backend side(Create posts);
     const createPost = async () => {
 

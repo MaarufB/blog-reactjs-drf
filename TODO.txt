@@ -1,1 +1,10 @@
 Front-end refactor
+
+Reduce the data being retrieved by the front end
+
+# 1. The Post list has a nested field which is the comment table, 
+    Would be better if just remove it and just use it in PostView component which is 
+    retrieving a single post but it include its comments
+
+# 2. Add Registration Field where the user is able to update his/her profile
+ 

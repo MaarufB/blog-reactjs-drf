@@ -14,7 +14,6 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
 
-
 class RegisterUserSerializer(serializers.ModelSerializer):
     # password = serializers.CharField(max_length=100, min_length=8, write_only=True)
     
@@ -67,12 +66,33 @@ class CommentsSerializer(serializers.ModelSerializer):
         #     return CommentsSerializer()
 
 
+class PostBaseSerializer(serializers.ModelSerializer):
+    # Make a function here that will clean the date_time data
+    user = UserProfileSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Post
+        fields = [  'id', 
+                    'user', 
+                    'post_title', 
+                    'body', 
+                    'image'
+                ]
+
+class PostCommentSerializer(PostBaseSerializer):
+    comments = CommentsSerializer(many=True, read_only=True)    
+    class Meta(PostBaseSerializer.Meta):
+        fields = PostBaseSerializer.Meta.fields + [
+            'comments'   
+        ]
+
+
 class PostSerializer(serializers.ModelSerializer):
     comments = CommentsSerializer(many=True, read_only=True)
     user = UserProfileSerializer(many=False, read_only=True)
 
     class Meta:
-        user = serializers.ReadOnlyField(source='*')
+        # user = serializers.ReadOnlyField(source='*')
         model = Post
         fields = (
                     'id', 

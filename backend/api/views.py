@@ -3,8 +3,19 @@ from .serializers import (
     UserSerializer, 
     GroupSerializer)
 
-from .models import Post, Comment, SubComment
-from .serializers import PostSerializer, CommentsSerializer
+from .models import (
+                        Post, 
+                        Comment, 
+                        SubComment
+                    )
+
+from .serializers import (  
+                            PostSerializer, 
+                            CommentsSerializer,
+                            PostBaseSerializer,
+                            PostCommentSerializer
+                        )
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -80,7 +91,9 @@ class BlogListAPIView(APIView):
     
     def get(self, request, format=None):
         blog = Post.objects.all()
-        serializer = PostSerializer(instance=blog, many=True)
+
+        # serializer = PostSerializer(instance=blog, many=True)
+        serializer = PostBaseSerializer(instance=blog, many=True)
 
         return Response(serializer.data)
 
@@ -108,16 +121,11 @@ class BlogDetailAPIView(APIView):
         context= {}
 
         blog = self.get_objects(pk=pk)
-        serializer = PostSerializer(instance=blog)
+        # This is the original 1
+        # serializer = PostSerializer(instance=blog)
         
-        comment = Comment.objects.filter(post=blog)
-        comment_serializer = CommentsSerializer(instance=comment)
-
-        context['id'] = serializer.data['id']
-        context['post_title'] = serializer.data['post_title']
-        context['body'] = serializer.data['body']
-        context['comments'] = list()
-
+        serializer = PostCommentSerializer(instance=blog)
+        
         return Response(serializer.data)
     
     def put(self, request, pk, format=None):
