@@ -15,15 +15,6 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 class RegisterUserSerializer(serializers.ModelSerializer):
-    # password = serializers.CharField(max_length=100, min_length=8, write_only=True)
-    
-    # class Meta:
-    #     model = User
-    #     fields = ['email', 'username', 'password']
-
-    # def create(self, validated_data):
-    #     return User.objects.create_user(**validated_data)
-
     password = serializers.CharField(
         write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)

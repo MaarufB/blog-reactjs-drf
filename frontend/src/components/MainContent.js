@@ -36,6 +36,7 @@ const MainContent = () => {
                             title={item.post_title}
                             image={item.image}
                             body={item.body}
+                            user={item.user}
                         />
                     ))}
             </div>
