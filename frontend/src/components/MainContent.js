@@ -1,11 +1,20 @@
 import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
-// import { dummyPost } from "../dummy/dummyPost";
 import PostList from "./PostList";
-// import { Outlet } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const MainContent = () => {
+    const {authTokens} = useContext(AuthContext);   
+    const {access, refresh} = authTokens;
+    // console.log(access, refresh)
+    const tokenConfig = {
+        access: access,
+        refresh: refresh,
+    }
+
+    console.log(tokenConfig);
     const baseURL = "http://127.0.0.1:8000/api";
 
     const [posts, setPosts] = useState([]);
@@ -15,7 +24,11 @@ const MainContent = () => {
     },[]);
 
     const fetchPost = async () => {
-        await axios.get(`${baseURL}/blog`)
+        await axios.get(`${baseURL}/blog`, {
+            headers:{
+                'Authorization': `Bearer ${access}`,
+            }
+        })
             .then(response => {
                 console.log(response.data);
                 setPosts(response.data);

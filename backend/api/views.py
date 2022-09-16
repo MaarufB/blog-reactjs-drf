@@ -86,12 +86,11 @@ class LoginAPIView(TokenObtainPairView):
 
 class BlogListAPIView(APIView):
     # permission_classes = (IsAuthenticated,)
-    # @sync_to_async
     parser_classes = (MultiPartParser, FormParser)
     
     def get(self, request, format=None):
         blog = Post.objects.all()
-
+        print(f"{request.user}")
         # serializer = PostSerializer(instance=blog, many=True)
         serializer = PostBaseSerializer(instance=blog, many=True)
 
@@ -143,8 +142,6 @@ class BlogDetailAPIView(APIView):
         blog.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
 
 # from django.views.decorators.csrf import csrf_exempt
 

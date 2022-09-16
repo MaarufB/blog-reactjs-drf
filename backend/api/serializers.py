@@ -65,6 +65,7 @@ class PostBaseSerializer(serializers.ModelSerializer):
         model = Post
         fields = [  'id', 
                     'user', 
+                    'user_id',
                     'post_title', 
                     'body', 
                     'image'
@@ -88,11 +89,12 @@ class PostSerializer(serializers.ModelSerializer):
         fields = (
                     'id', 
                     'user', 
+                    'user_id',
                     'post_title', 
                     'body', 
                     'image', 
                     'comments'
-                )#'comments' add this comment
+                )
         
         # fields = '__all__'
 
