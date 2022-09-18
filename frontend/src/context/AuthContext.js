@@ -164,12 +164,18 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data);
             setUser(jwt_decode(data.access));
             localStorage.setItem("authTokens", JSON.stringify(data));
+            console.log(jwt_decode(data.access));
             navigate("/");
             console.log(`Successfully Logged In~~~`)
         } else {
             alert("Something went wrong!");
         }
     };
+
+    const getProfile = () =>{
+
+    }
+
 
     const registerUser = async (username, password, password2) => {
         const response = await fetch("http://127.0.0.1:8000/api/register/", {

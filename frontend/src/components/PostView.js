@@ -4,9 +4,13 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Comments from "./Comments";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const PostView = (props) => {
     const baseURL = "/api";
+    const { authTokens } = useContext(AuthContext);
+    const {access, refresh} = authTokens;
 
     const params = useParams();
     
@@ -29,7 +33,11 @@ const PostView = (props) => {
     });
 
     const fetchPostById = async () => {
-        await axios.get(`${baseURL}/blog/${params.id}`)
+        await axios.get(`${baseURL}/blog/${params.id}`, {
+            headers:{
+                'Authorization': `Bearer ${access}`,
+            }
+        })
             .then(response => {
                 setPost(response.data);
                 const {comments} = response.data;
@@ -50,6 +58,7 @@ const PostView = (props) => {
 
         await axios.post(`${baseURL}/post-comment/`, formData, {
             headers:{
+                'Authorization': `Bearer ${access}` ,
                 "Content-Type": "application/json",
             },
         }).then(({data}) => {

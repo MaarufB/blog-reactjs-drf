@@ -85,7 +85,7 @@ class LoginAPIView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 class BlogListAPIView(APIView):
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser, FormParser)
     
     def get(self, request, format=None):
@@ -109,6 +109,7 @@ class BlogListAPIView(APIView):
 
 
 class BlogDetailAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
     
     def get_objects(self, pk):
         try:

@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const PostForm = () =>{
     // parameters passed by url
@@ -13,8 +15,12 @@ const PostForm = () =>{
     // Base URL
     const baseURL = "/api";
 
+    const {authTokens} = useContext(AuthContext);
+    const {access, refresh} = authTokens;
+
     const [post, setPost] = useState({
         user: 1,
+        user_id:1,
         post_title: "",
         body: ""
     });
@@ -37,7 +43,10 @@ const PostForm = () =>{
     },[]);
 
     const fetchPost = async () => {
-        await axios.get(`${baseURL}/blog/${params.id}`)
+        await axios.get(`${baseURL}/blog/${params.id}`,{
+            headers:{
+                'Authorization': `Bearer ${access}`,
+            }})
             .then(response => {
                 console.log(response.data);
                 setPost(response.data);
@@ -92,6 +101,7 @@ const PostForm = () =>{
 
         await axios.post(`${baseURL}/blog/`,formData, {
             headers: {
+                "Authorization": `Bearer ${access}`,
                 "Content-Type": "multipart/form-data",
             },
             }).then(({data}) => {
@@ -115,7 +125,12 @@ const PostForm = () =>{
             formData.append('image', image);
         }
 
-        await axios.put(`${baseURL}/blog/${params.id}/`,formData)
+        await axios.put(`${baseURL}/blog/${params.id}/`,formData, {
+            headers:{
+                'Authorization': `Bearer ${access}`,
+                "Content-Type": "multipart/form-data",
+            }
+        })
             .then(({data}) => {
                 console.log("Update");
                 navigate("/");
@@ -126,7 +141,11 @@ const PostForm = () =>{
     }
 
     const deletePost = async () => {
-        await axios.delete(`${baseURL}/blog/${params.id}/`)
+        await axios.delete(`${baseURL}/blog/${params.id}/` , {
+            headers: {
+                'Authorization': `Bearer ${access}`,
+            }
+        })
             .then((data) => {
                 console.log(data);
                 navigate("/");

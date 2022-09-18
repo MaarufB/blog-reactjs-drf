@@ -4,21 +4,25 @@ import { useState, useEffect } from "react";
 import PostList from "./PostList";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
+// import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MainContent = () => {
     const {authTokens} = useContext(AuthContext);   
     const {access, refresh} = authTokens;
-    // console.log(access, refresh)
+
     const tokenConfig = {
         access: access,
         refresh: refresh,
     }
 
-    console.log(tokenConfig);
     const baseURL = "http://127.0.0.1:8000/api";
 
     const [posts, setPosts] = useState([]);
     
+    // navigate
+    const navigate = useNavigate()
+
     useEffect(() => {
         fetchPost();
     },[]);
@@ -30,14 +34,19 @@ const MainContent = () => {
             }
         })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data)
                 setPosts(response.data);
             })
             .catch(error => {
-                console.log(`errors\n${error}`);
+                console.log(error.response.status)
+                
+                if (error.response.status == 401){
+                    navigate('/login');
+                }
+
             })
     }
-
+    
     return (
     <div className="container mt-4">
         <div className="row justify-content-center">
