@@ -6,14 +6,16 @@ from .serializers import (
 from .models import (
                         Post, 
                         Comment, 
-                        SubComment
+                        SubComment,
+                        UserProfile,
                     )
 
 from .serializers import (  
                             PostSerializer, 
                             CommentsSerializer,
                             PostBaseSerializer,
-                            PostCommentSerializer
+                            PostCommentSerializer,
+                            UserProfileSerializer
                         )
 
 from rest_framework import status
@@ -49,7 +51,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['username'] = user.username
-        # ...
+        # get user profile
+        user_model = UserProfile.objects.get(user_id=user.id)
+        user_profile_serializer = UserProfileSerializer(instance=user_model)
+        token['user_profile']= user_profile_serializer.data
+        
         return token
 
 @api_view(['GET'])

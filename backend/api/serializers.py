@@ -41,6 +41,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         return user
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = UserProfile
         fields = ('profile_pic',)

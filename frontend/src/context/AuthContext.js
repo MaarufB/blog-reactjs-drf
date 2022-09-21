@@ -143,6 +143,16 @@ export const AuthProvider = ({ children }) => {
             ? jwt_decode(localStorage.getItem("authTokens"))
             : null
     );
+    
+    // We will create a state which will handle the user profile
+    const [userProfile, setUserProfile] = useState(() => 
+    localStorage.getItem("userProfile") 
+            ? JSON.parse(localStorage.getItem("userProfile"))
+            : null
+    ); 
+
+
+
     const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
@@ -162,11 +172,23 @@ export const AuthProvider = ({ children }) => {
 
         if (response.status === 200) {
             setAuthTokens(data);
+
+            // perform destructuring to get the token, userprofile
+            
             setUser(jwt_decode(data.access));
+            // const userCredentials = jwt_decode(data.access)
+
             localStorage.setItem("authTokens", JSON.stringify(data));
             console.log(jwt_decode(data.access));
             navigate("/");
             console.log(`Successfully Logged In~~~`)
+        
+            // test if the user profile is included
+            const test_data = Object.entries(data);
+            console.log(`TEST DATA: ${test_data}`);
+
+
+
         } else {
             alert("Something went wrong!");
         }
