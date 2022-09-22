@@ -8,13 +8,16 @@ import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const MainContent = () => {
-    const {authTokens} = useContext(AuthContext);   
+    const {authTokens, user, userProfile} = useContext(AuthContext);   
     const {access, refresh} = authTokens;
 
     const tokenConfig = {
         access: access,
         refresh: refresh,
     }
+
+
+    console.log(`user: ${userProfile}`)
 
     const baseURL = "http://127.0.0.1:8000/api";
 

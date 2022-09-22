@@ -3,10 +3,13 @@ import { Link, NavLink } from "react-router-dom";
 // import { useEffect } from "react";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import avatar from "../assets/images/avatar.jpg";
 
 const NavBar = () =>{
-    let {user, logoutUser} = useContext(AuthContext);
+    let {user, logoutUser, userProfile} = useContext(AuthContext);
     
+    const profile_pic = user ? userProfile : avatar;
+
     return (
         user ? (
             <>
@@ -123,7 +126,8 @@ const NavBar = () =>{
           aria-expanded="false"
         >
           <img
-            src="https://media-exp1.licdn.com/dms/image/C4D03AQEv-vwlqnX7Zw/profile-displayphoto-shrink_200_200/0/1622088978783?e=1668038400&v=beta&t=UFKCg2vcXrauuWsdrf9no_abwmTt54Nl63lsd31dV-w"
+          // https://media-exp1.licdn.com/dms/image/C4D03AQEv-vwlqnX7Zw/profile-displayphoto-shrink_200_200/0/1622088978783?e=1668038400&v=beta&t=UFKCg2vcXrauuWsdrf9no_abwmTt54Nl63lsd31dV-w
+            src={profile_pic}
             className="rounded-circle"
             height="25"
             alt="Black and White Portrait of a Man"
