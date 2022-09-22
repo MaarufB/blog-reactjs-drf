@@ -55,7 +55,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         user_model = UserProfile.objects.get(user_id=user.id)
         user_profile_serializer = UserProfileSerializer(instance=user_model)
         token['user_profile']= user_profile_serializer.data
-        # test git
+        # test git 2
         return token
 
 @api_view(['GET'])
