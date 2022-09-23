@@ -10,7 +10,7 @@ import AuthContext from "../context/AuthContext";
 const PostView = (props) => {
     const baseURL = "/api";
     const { authTokens } = useContext(AuthContext);
-    const {access, refresh} = authTokens;
+    const {access} = authTokens;
 
     const params = useParams();
     

@@ -60,7 +60,7 @@ const PostForm = () =>{
         // setImage(event.target.files[0]); 
         const handledData = {...post, [event.target.name]:event.target.value};
         setPost(handledData);   
-        if (event.target.name == "image"){
+        if (event.target.name === "image"){
             setImage(event.target.files[0]);
         }
     }
