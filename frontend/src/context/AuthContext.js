@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     
     // We will create a state which will handle the user profile
     const [userProfile, setUserProfile] = useState(() => 
-            user ? user.user_profile.profile_pic : null
+        user.user_profile ? user.user_profile.profile_pic : null
     // localStorage.getItem("userProfile") 
     //         ? JSON.parse(localStorage.getItem("userProfile"))
     //         : null
@@ -53,7 +53,9 @@ export const AuthProvider = ({ children }) => {
             // const userCredentials = jwt_decode(data.access)
 
             localStorage.setItem("authTokens", JSON.stringify(data));
-            console.log(jwt_decode(data.access));
+            // setUserProfile(user ? user.user_profile.profile_pic : null);
+            
+            // console.log(jwt_decode(data.access));
             navigate("/");
             console.log(`Successfully Logged In~~~`)
         
