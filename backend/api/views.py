@@ -45,17 +45,36 @@ from rest_framework import generics
 from django.contrib.auth.models import User
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    
+    # def get_objects(self, pk):
+    #     try:
+    #         return UserProfile.objects.get(user_id=pk)
+    #     except UserProfile.DoesNotExist:
+    #         raise Http404    
+    
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
 
         # Add custom claims
         token['username'] = user.username
-        # get user profile
-        user_model = UserProfile.objects.get(user_id=user.id)
-        user_profile_serializer = UserProfileSerializer(instance=user_model)
-        token['user_profile']= user_profile_serializer.data
-        # test git 2
+        user_model = None  
+        user_profile_serializer = None
+
+        print(f"UserID {user.id}")
+
+        if UserProfile.objects.filter(user=user.id).exists():
+            user_model = UserProfile.objects.get(user=user.id)
+            user_profile_serializer = UserProfileSerializer(instance=user_model)
+            
+            token['user_profile'] = user_profile_serializer.data
+            print(f"Profile {token['user_profile']}")
+
+        # token['user_profile'] = None
+
+        if token['user_profile'] is None:
+            print(f"UserProfile is None {token['user_profile']}")
+
         return token
 
 @api_view(['GET'])
@@ -89,6 +108,52 @@ class RegisterAPIView(APIView):
 
 class LoginAPIView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+class ProfileAPIView(APIView):
+    # permission_classes = (IsAuthenticated,)
+    perser_classes = (MultiPartParser, FormParser)
+
+
+    def get(self, request, pk, format=None):
+        profile_model = UserProfile.objects.get(user=pk)
+        profile_serializer = UserProfileSerializer(instance=profile_model, many=False)
+
+        return Response(profile_serializer.data)
+
+    def put(self, request, pk, format=None):
+        profile_model = UserProfile.objects.get(user=pk)
+        print(request.data)
+        profile_serializer = UserProfileSerializer(instance=profile_model, data=request.data)
+
+        if profile_serializer.is_valid():
+            profile_serializer.save()
+
+            return Response(profile_serializer.data)
+
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+    def delete(self, request, pk, format=None):
+        pass
+
+class ProfilePostAPIView(APIView):
+    # permission_classes = (IsAuthenticated,)
+    perser_classes = (MultiPartParser, FormParser)
+
+    def get(self, request, format=None):
+        
+        return Response({"message": "None Necessary!"})
+
+    def post(self, request, format=None):
+        serializer = UserProfile(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class BlogListAPIView(APIView):
     permission_classes = (IsAuthenticated,)

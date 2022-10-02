@@ -4,6 +4,8 @@ import AuthContext from "../context/AuthContext"
 
 export default function RegisterForm(){
     let [userCredential, setUserCredential] =  useState({
+        first_name:"",
+        last_name:"",    
         username:"",
         password:"",
         password2:""
@@ -20,6 +22,8 @@ export default function RegisterForm(){
     const handleSubmit = (event) => {
         event.preventDefault();
         registerUser(
+            userCredential.first_name,
+            userCredential.last_name,
             userCredential.username, 
             userCredential.password, 
             userCredential.password2
@@ -32,6 +36,31 @@ export default function RegisterForm(){
             <div className="row justify-content-center">
                 <div className="col-md-7 border-radius">
                     <form className="form-group p-2 m-2 border shadow">
+                        
+                    <div className="m-2">
+                            <label className="form-label">first name</label>
+
+                            <input
+                                className="form-control"
+                                name="first_name"
+                                id="first_name"
+                                onChange={handleChange}
+                                value={userCredential?.first_name}
+                                placeholder="first name" />
+                        </div>
+
+                        <div className="m-2">
+                            <label className="form-label">last name</label>
+
+                            <input
+                                className="form-control"
+                                name="last_name"
+                                id="last_name"
+                                onChange={handleChange}
+                                value={userCredential?.last_name}
+                                placeholder="last name" />
+                        </div>
+
                         <div className="m-2">
                             <label className="form-label">username</label>
 

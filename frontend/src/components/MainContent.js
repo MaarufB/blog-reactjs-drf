@@ -1,10 +1,8 @@
 import axios from "axios";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PostList from "./PostList";
-import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
-// import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const MainContent = () => {
@@ -17,8 +15,8 @@ const MainContent = () => {
     }
 
 
-    console.log(`user: ${userProfile}`)
-
+    // console.log(`user: ${userProfile} \n${Object.entries(user)}`)
+    // console.log(`username: ${}`)
     const baseURL = "http://127.0.0.1:8000/api";
 
     const [posts, setPosts] = useState([]);

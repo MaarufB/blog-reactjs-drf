@@ -1,6 +1,6 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-// import { useEffect } from "react";
+import React, { useState } from "react";
+import { Link, NavLink, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import avatar from "../assets/images/avatar.jpg";
@@ -8,7 +8,15 @@ import avatar from "../assets/images/avatar.jpg";
 const NavBar = () =>{
     let {user, logoutUser, userProfile} = useContext(AuthContext);
     
-    const profile_pic = user ? userProfile : avatar;
+    const profile_pic = userProfile.profile_pic ? userProfile.profile_pic : avatar;
+
+    const [getUser, setUser] = useState(null); 
+
+    // useEffect(() =>
+    // {
+      
+    // }, []);
+
 
     return (
         user ? (
@@ -40,7 +48,7 @@ const NavBar = () =>{
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/" className="nav-link active" aria-current="page">
+                                    <Link to="/profile" className="nav-link active" aria-current="page">
                                         Profile
                                     </Link>
                                 </li>
@@ -104,12 +112,12 @@ const NavBar = () =>{
           className="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdownMenuLink"
         >
-          <li>
+          {/* <li>
             <a className="dropdown-item" href="#">Some news</a>
           </li>
           <li>
             <a className="dropdown-item" href="#">Another news</a>
-          </li>
+          </li> */}
           <li>
             <a className="dropdown-item" href="#">Something else here</a>
           </li>
@@ -126,12 +134,13 @@ const NavBar = () =>{
           aria-expanded="false"
         >
           <img
-          // https://media-exp1.licdn.com/dms/image/C4D03AQEv-vwlqnX7Zw/profile-displayphoto-shrink_200_200/0/1622088978783?e=1668038400&v=beta&t=UFKCg2vcXrauuWsdrf9no_abwmTt54Nl63lsd31dV-w
             src={profile_pic}
             className="rounded-circle"
             height="25"
             alt="Black and White Portrait of a Man"
-            loading="lazy"
+            style={{
+              width: "25%px",
+            }}
           />
         </a>
         <ul

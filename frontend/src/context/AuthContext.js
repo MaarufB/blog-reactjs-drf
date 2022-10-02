@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     
     // We will create a state which will handle the user profile
     const [userProfile, setUserProfile] = useState(() => 
-        user.user_profile ? user.user_profile.profile_pic : null
+        (user && user.user_profile) ? user.user_profile : null
     // localStorage.getItem("userProfile") 
     //         ? JSON.parse(localStorage.getItem("userProfile"))
     //         : null
@@ -55,16 +55,11 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem("authTokens", JSON.stringify(data));
             // setUserProfile(user ? user.user_profile.profile_pic : null);
             
-            // console.log(jwt_decode(data.access));
+            console.log(jwt_decode(data.access));
+            
             navigate("/");
             console.log(`Successfully Logged In~~~`)
-        
-            // test if the user profile is included
-            const test_data = Object.entries(data);
-            console.log(`TEST DATA: ${test_data}`);
-
-
-
+            
         } else {
             alert("Something went wrong!");
         }
@@ -75,13 +70,15 @@ export const AuthProvider = ({ children }) => {
     }
 
 
-    const registerUser = async (username, password, password2) => {
+    const registerUser = async (first_name, last_name, username, password, password2) => {
         const response = await fetch("http://127.0.0.1:8000/api/register/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+                first_name,
+                last_name,
                 username,
                 password,
                 password2

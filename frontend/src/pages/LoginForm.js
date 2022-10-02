@@ -61,9 +61,5 @@ export default function LoginForm(){
                 </div>
             </div>
         </div>
-        // <div className="text-center mt-3">
-        //     <h2>Login Form</h2>
-        //     <Link to="/"><button>Login</button></Link>
-        // </div>
     )
 }

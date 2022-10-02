@@ -5,7 +5,7 @@ import avatar from "../assets/images/avatar.jpg";
 
 
 const PostList = (props) => {
-    const description = (props.body.length > 200) ? props.body.slice(0,200) +" ......Read More" : props.body;
+    const description = (props.body.length > 200) ? props.body.slice(0,200) + " ......Read More" : props.body;
     const profile_pic = props.user ? props.user.profile_pic : avatar;
 
     return ( 
@@ -15,10 +15,13 @@ const PostList = (props) => {
                     <div className="row">
                         <img 
                             src= {profile_pic}
-                            className="rounded-circle col-md-auto col-4"
-                            height="50"
+                            className="rounded-circle col-2"
+                            // height="50"
                             alt="Black and White Portrait of a Man"
                             loading="lazy"
+                            style={{
+                                width:"25%"
+                            }}
                             />
                         <p className="post-user col m-auto">maarufb</p>
                     </div>

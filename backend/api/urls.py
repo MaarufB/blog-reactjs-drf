@@ -8,10 +8,7 @@ from rest_framework_simplejwt.views import (
 
 from .views import MyTokenObtainPairView
 from . import views
-
-
-# router = routers.DefaultRouter()
-# router.register('blog/',views.BlogListAPIView.as_view())
+from .api_views import profile_view
 
 
 urlpatterns = [
@@ -28,8 +25,15 @@ urlpatterns = [
     path('blog/', views.BlogListAPIView.as_view(), name='blogs'),
     path('blog/<int:pk>/', views.BlogDetailAPIView.as_view(), name='blog'),
 
-
     #comment
     path('post-comment/', views.PostCommentGetPostAPI.as_view(), name='post-comment'),
     path('post-comment/<int:pk>/', views.PostCommentGetPostAPI.as_view(), name='post-comment'),   
+
+
+    # user profile
+    path('user-profile/', profile_view.ProfilePostAPIView.as_view()),
+    # path('user-profile/<int:pk>/', views.ProfileAPIView.as_view(), name='user-profile'),
+
+    path('user-profile/<int:pk>/', profile_view.ProfileAPIView.as_view(), name='user-profile'),
+
 ]

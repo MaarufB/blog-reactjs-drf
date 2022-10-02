@@ -5,9 +5,11 @@ from rest_framework import serializers
 from .models import Post, Comment, SubComment, UserProfile
 
 class UserSerializer(serializers.ModelSerializer):
+    # profile_pic = serializers.CharField(source='userprofile.profile_pic')
+
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups']
+        fields = ['url', 'username', 'first_name','email', 'groups']
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -21,7 +23,13 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password2')
+        fields = (
+            'first_name',
+            'last_name',
+            'username', 
+            'password', 
+            'password2'
+            )
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
@@ -32,7 +40,9 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create(
-            username=validated_data['username']
+            username=validated_data['username'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name']            
         )
 
         user.set_password(validated_data['password'])
@@ -41,10 +51,30 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         return user
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    # user = UserSerializer(many=False, read_only=False)
+    username = serializers.CharField(source="user.username", read_only=True)
+    email = serializers.CharField(source="user.email", read_only=True)
+    first_name = serializers.CharField(source="user.first_name", read_only=True)
+    last_name = serializers.CharField(source="user.last_name", read_only=True)
     
     class Meta:
+        # user_parent = serializers.ReadOnlyField(source='user')
         model = UserProfile
-        fields = ('profile_pic',)
+        # Be careful when using tuple instead of list, make user to
+        # add ',' after if you only put a single item or else
+        # you'll get an error
+
+        fields = (
+                  'id',
+                  'username',
+                  'email',
+                  'first_name',
+                  'last_name',
+                  'profile_pic', 
+                  'user_id', 
+                  'test_data'
+                  )
+        # fields = '__all__'
 
 class CommentsSerializer(serializers.ModelSerializer):
     # post_id = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
@@ -61,11 +91,16 @@ class CommentsSerializer(serializers.ModelSerializer):
 class PostBaseSerializer(serializers.ModelSerializer):
     # Make a function here that will clean the date_time data
     user = UserProfileSerializer(many=False, read_only=True)
-
+    
+    # We will make chages to the data we are returning using source
+    profile_pic = serializers.CharField(source='user.profile_pic', read_only=True)
+    
     class Meta:
+        # profile_pic = serializers.ReadOnlyField(source="userprofile.profile_pic")
         model = Post
         fields = [  'id', 
                     'user', 
+                    'profile_pic',
                     'user_id',
                     'post_title', 
                     'body', 

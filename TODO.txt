@@ -8,3 +8,17 @@ Reduce the data being retrieved by the front end
 
 # 2. Add Registration Field where the user is able to update his/her profile
  
+
+
+UserProfile Model properties:
+    ===========>>> from user model
+    id
+    first_name
+    last_name
+    username
+    email
+    password
+    ===========>>> extension of user model
+    profile_pic
+    age (not neccessary)
+    address (not neccessary)

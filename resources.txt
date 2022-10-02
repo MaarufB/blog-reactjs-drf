@@ -1,1 +1,19 @@
 https://github.com/MaarufB/authentication-react-drf.git
+
+
+
+#to learn more about useContext use this reference:
+https://medium.com/technofunnel/usecontext-in-react-hooks-aa9a60b8a461
+
+
+reference to learn about useEffect
+https://medium.com/technofunnel/https-medium-com-mayank-gupta-6-88-react-useeffect-hooks-in-action-2da971cfe83f
+
+
+Reference to learn more about complex serialization
+https://testdriven.io/blog/drf-serializers/
+
+
+Best Reference to get an idea on how to build a user profile:
+https://mdbootstrap.com/docs/standard/extended/profiles/
+https://freefrontend.com/bootstrap-profiles/
