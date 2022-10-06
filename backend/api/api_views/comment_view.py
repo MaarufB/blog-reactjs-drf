@@ -11,6 +11,12 @@ from ..models import (
                         )
 
 
+#TODO 
+"""
+    
+"""
+
+
 class PostCommentGetPostAPI(APIView):
 
     def get(self, request, format=None):
@@ -28,8 +34,7 @@ class PostCommentGetPostAPI(APIView):
         if comment_serializer.is_valid():
             comment_serializer.save()
             comment_list = Comment.objects.all()
-            comment_list_serializer = CommentsSerializer(
-                instance=comment_list, many=True)
+            comment_list_serializer = CommentsSerializer(instance=comment_list, many=True)
 
             return Response(comment_list_serializer.data, status=status.HTTP_201_CREATED)
 
