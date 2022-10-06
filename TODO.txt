@@ -10,6 +10,10 @@ Reduce the data being retrieved by the front end
  
 
 
+
+
+
+
 UserProfile Model properties:
     ===========>>> from user model
     id
