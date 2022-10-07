@@ -3,6 +3,7 @@ import axios from "axios";
 import AuthContext from "../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import avatar from "../assets/images/avatar.jpg";
+import { useNavigate, Link } from "react-router-dom";
 
 const Profile = () => {
 
@@ -11,8 +12,10 @@ const Profile = () => {
     const [userInfo, setUserInfo] = useState(() =>
         user ? userProfile : null
     );
-    
+
     const profile_pic = user ? userProfile.profile_pic : avatar; 
+
+    console.log(userProfile)
 
 
     return (
@@ -32,7 +35,9 @@ const Profile = () => {
                                 </div> 
                                 <div className="media-body mb-5 text-white"> 
                                     <h4 className="mt-0 mb-0">{userInfo.first_name} {userInfo.last_name}</h4> 
-                                    <button className="btn btn-outline-dark btn-sm btn-block text-white">Edit profile</button>
+                                    <Link to={`/profile/update/${userProfile.user_id}`}>
+                                        <button className="btn btn-outline-dark btn-sm btn-block text-white">Edit profile</button>
+                                    </Link>
                                     {/* TODO ADDRESS */}
                                     {/* <p className="small mb-4"><i className="fas fa-map-marker-alt mr-2"></i>New York</p>  */}
                                 </div> 

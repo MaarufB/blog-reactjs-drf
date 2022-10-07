@@ -19,20 +19,21 @@ class ProfileAPIView(APIView):
     # permission_classes = (IsAuthenticated,)
     perser_classes = (MultiPartParser, FormParser)
 
-
     def get(self, request, pk, format=None):
         profile_model = UserProfile.objects.get(user=pk)
         profile_serializer = UserProfileSerializer(instance=profile_model, many=False)
+        print(f"Get Profile {request}")
 
         return Response(profile_serializer.data)
 
     def put(self, request, pk, format=None):
         profile_model = UserProfile.objects.get(user=pk)
-        print(request.data)
+        print(f"update profile endpoint call")
         profile_serializer = UserProfileSerializer(instance=profile_model, data=request.data)
 
         if profile_serializer.is_valid():
             profile_serializer.save()
+            print(f"Update profile success")
 
             return Response(profile_serializer.data)
 
@@ -42,13 +43,12 @@ class ProfileAPIView(APIView):
     def delete(self, request, pk, format=None):
         pass
 
-
 class ProfilePostAPIView(APIView):
     # permission_classes = (IsAuthenticated,)
     perser_classes = (MultiPartParser, FormParser)
 
     def get(self, request, format=None):
-        
+
         return Response({"message": "None Necessary!"})
 
     def post(self, request, format=None):

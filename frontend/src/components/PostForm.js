@@ -1,8 +1,7 @@
 import axios from "axios";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
 const PostForm = () =>{

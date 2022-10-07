@@ -5,6 +5,7 @@ import PostForm from "./components/PostForm";
 import RegisterForm from './pages/RegisterForm';
 import LoginForm from './pages/LoginForm';
 import Profile from './components/Profile';
+import ProfileForm from './components/ProfileForm';
 
 import {Routes, Route, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from './context/AuthContext';
@@ -33,6 +34,7 @@ function App() {
               <Route path="/post/:delete/:id" element={<PostForm />}></Route>
               <Route path="/post/:id" element={<PostView />}></Route>
               <Route path="/profile" element={<Profile />}></Route>
+              <Route path="/profile/update/:id" element={<ProfileForm />}></Route>
           </Route>
         </Routes>
         <Footer />
