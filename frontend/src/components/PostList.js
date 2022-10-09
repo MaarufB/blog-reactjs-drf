@@ -10,54 +10,59 @@ const PostList = (props) => {
 
     return ( 
         <div className="container mb-3 shadow">
-            <div className="d-flex m-0">
-                <div className="d-flex p-2">
-                    <div className="row">
-                        <img 
+            <div className="row mb-2 p-2">
+                <div className="col" >
+                    <div className="d-flex">
+                        <img
+                            className="rounded-cicle"
                             src= {profile_pic}
-                            className="rounded-circle col-2"
-                            // height="50"
-                            alt="Black and White Portrait of a Man"
                             loading="lazy"
+                            alt="Profile image"
+                            height="50"
+                            width="50"
                             style={{
-                                width:"25%"
+                                borderRadius: "50%"
                             }}
                             />
-                        <p className="post-user col m-auto">maarufb</p>
+                            
+                        <p className="post-user mx-3">maarufb</p>
+                        <span className="ms-auto">
+                            <p 
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false"
+                                style={{
+                                    cursor:"pointer"
+                                }}>....
+                            </p>
+                        
+                            <ul className="dropdown-menu">
+                                <li>
+                                    <Link to={`/post/update/${props.id}`}> 
+                                        <span className="dropdown-item drop-item">Update</span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={`/post/delete/${props.id}`}>
+                                       <span className="dropdown-item drop-item">Delete</span>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </span>
                     </div>
                 </div>
-                <span className="ms-auto">
-                    <p 
-                        data-bs-toggle="dropdown" 
-                        aria-expanded="false"
-                        style={{
-                            cursor:"pointer"
-                        }}>....</p>
-                        
-                     <ul className="dropdown-menu">
-                        <li>
-                            <Link to={`/post/update/${props.id}`}> 
-                                <span className="dropdown-item drop-item">Update</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to={`/post/delete/${props.id}`}>
-                                <span className="dropdown-item drop-item">Delete</span>
-                            </Link>
-
-                        </li>
-                    </ul>
-                </span>
             </div>
-            <div className="row justify-content-center">
-                <div className="col-md-4">
+
+            <div className="row justify-content-center p-2">
+                <div className="col-12 mb-3">
                     <img
                         className="post-image"
                         src={props.image}
                         alt="post by the user"
+                        loading="lazy"
+                        height="320"
                         />
                 </div>
-                <div className="col-md-8 mb-3">
+                <div className="col-12">
                     <h1 className="post-title">{props.title}</h1>
                     <div>
                         <p>{description}</p>

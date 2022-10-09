@@ -3,7 +3,7 @@ import React from "react";
 export default function Comments(props){
 
     return (
-        <div className="row justify-content-center shadow">
+        <div className="row justify-content-center mb-3 shadow">
             <div className="col-10 p-2">
                 <div className="container">
                     <div className="d-flex p-2">

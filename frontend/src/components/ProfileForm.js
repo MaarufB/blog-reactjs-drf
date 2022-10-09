@@ -12,25 +12,26 @@ import {
 
 import AuthContext from "../context/AuthContext";
 
-const initialData = {
+const initialData =(id)=> 
+{
+    return {
     email: "maarufb@gmail.com",
     first_name: "Ma-aruf",
-    id: 1,
     last_name: "Burad",
-    profile_pic: "/media/profile/michael-jordan-looks_bk8dpeS.jpg",
-    test_data: "d",
-    user_id: 1,
+    profile_pic: "",
+    user_id: id,
     username: "maarufb"
+    }
 }
 
 const ProfileForm = (props) => {
 
-    const [profile, setProfile] = useState({
-        profile_pic: ""
-    });
+    const params = useParams();
+    const navigate = useNavigate();
+    const [profile, setProfile] = useState(initialData(params.id));
     const [imageProfile, setImageProfile] = useState(null);
     const baseURL = "/api";
-    const params = useParams();
+
     const {authTokens} = useContext(AuthContext);
     const {access, refresh} = authTokens;
 
@@ -49,82 +50,119 @@ const ProfileForm = (props) => {
         })
         .then(response => {
             setProfile(response.data);
-            console.log(response.data)
         })
         .catch(error => {
             console.log(error);
         })
     }
 
+    // console.log(`user profile: ${profile.profile_pic}`)
     
-    const updateProfile = async () => {
-        if (imageProfile!=null){
-            const formData = new FormData();
-            formData.append('profile_pic', imageProfile);
-            console.log('update clicked')
-            await axios.put(`${baseURL}/user-profile/${params.id}/`, formData,{
-                headers:{
-                'Authorization': `Bearer ${access}`,
-                'Content-Type': "multipart/form-data"
-            }
-            })
-            .then(({data}) => {
-                console.log(`Success ${data}`)
-            })
-            .catch(({response}) => {
-                console.log(response);
-            }) 
+    const updateProfile = () => {
+        const formData = new FormData();
+        formData.append('profile_pic', imageProfile);
+        if (!imageProfile){
+            navigate("/profile")
+            return
+        } 
+
+        axios.put(`${baseURL}/user-profile/${params.id}/`, formData,{
+            headers:{
+            'Authorization': `Bearer ${access}`,
+            'Content-Type': "multipart/form-data"
         }
+        })
+        .then((response) => {
+            if(response.status == 200) navigate("/profile")
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log(formData)
+        }) 
     }
 
     const handleChange = (event) => {
         const eventData = {...profile, [event.target.name]:event.target.value};
-        setProfile(eventData);
-        if (event.target.name === "profile-image") {
+        
+        if (event.target.name === "profile_pic") {
             setImageProfile(event.target.files[0]);
         }
-        console.log(eventData);
+
+        setProfile(eventData);
+
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (imageProfile){
-            updateProfile();
-        }
+        updateProfile();
+
     }
 
     return(
         <>
-            <div className="container py-3 justif-content-center">
-                <h2>Update Profile</h2>
-                <p>{profile.first_name}</p>
-                <p>{profile.last_name}</p>
-                <p>{profile.username}</p>
-                <p>{profile.profile_pic}</p>
-
-                <h2>Form</h2>
+            <div className="container my-4 justif-content-center container-min">
+                <h2 className="text-center py-3">Update Profile</h2>
                 <div className="row justify-content-center">
-                    <div className="col-md-7 border-radius border border-danger">
+                    <div className="col-md-7 border-radius shadow">
                         <form className="form-group p-2">
-                            <div>
+                            <div className="mb-2">
+                                <label>First Name</label>
+                                <input 
+                                    className="form-control input-field"
+                                    name="first_name"
+                                    type="text"
+                                    id="first_name"
+                                    placeholder="First Name"
+                                    value={profile?.first_name}
+                                    onChange={handleChange}
+                                    >
+                                
+                                </input>
+                            </div>
+                            <div className="mb-2">
+                                <label>Last Name</label>
+                                <input 
+                                    className="form-control input-field"
+                                    name="last_name"
+                                    type="text"
+                                    id="last_name"
+                                    placeholder="Last Name"
+                                    value={profile?.last_name}
+                                    onChange={handleChange}
+                                    
+                                    >
+                                
+                                </input>
+                            </div>
+                            <div className="mb-2">
+                                <label>username</label>
+                                <input 
+                                    className="form-control input-field"
+                                    name="username"
+                                    type="text"
+                                    id="username"
+                                    placeholder="username"
+                                    value={profile?.username}
+                                    onChange={handleChange} 
+                                    
+                                    >
+                                </input>
+                            </div>
+                            <div className="mb-2">
                                 <label>Profile Picture</label>
                                 <input 
                                     className="form-control input-field"
-                                    name="profile-image"
+                                    name="profile_pic"
                                     type="file"
+                                    id="profile_pic"
                                     accept="image/jpeg,image/png,image/gif"
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div>
+                            <div className="mb-2">
                                 <button 
                                     className="btn btn-primary"
-                                    onClick={
-                                        (event)=>{
-                                            event.preventDefault();
-                                            updateProfile();
-                                        } 
-                                    }
+                                    onClick={ handleSubmit}
                                     >Update</button>
                             </div>
                         </form>

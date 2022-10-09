@@ -85,7 +85,7 @@ const PostView = (props) => {
     }
 
     return (
-        <div className="container mt-4">
+        <div className="container mt-4 p-3 container">
             <div className="row justify-content-center">
                 <div className="col-8">
                     <div className="container mb-3 shadow">
@@ -94,7 +94,7 @@ const PostView = (props) => {
                                 <img
                                     src="https://media-exp1.licdn.com/dms/image/C4D03AQEv-vwlqnX7Zw/profile-displayphoto-shrink_200_200/0/1622088978783?e=1668038400&v=beta&t=UFKCg2vcXrauuWsdrf9no_abwmTt54Nl63lsd31dV-w"
                                     className="rounded-circle col"
-                                    height="50"
+                                    height="32"
                                     alt="Black and White Portrait of a Man"
                                     loading="lazy"
                                     />
@@ -115,16 +115,18 @@ const PostView = (props) => {
                             </span>
                         </div>                            
                         <div className="row justify-content-center p-4">
-                            <div className="col-10">
-                                <div className="d-flex justify-content-center">
-                                    <img className="img-fluid" 
-                                        src={post?.image} 
-                                        alt="post"
-                                        height="100"
-                                        width="720" />
-                               </div>
+                            <div className="col-10" style={{
+                                // maxHeight:"50vh"
+                            }}>
+                               <img className="img-fluid border" 
+                                    src={post?.image} 
+                                    alt="post"
+                                    loading="lazy"
+                                    // height="320"
+                                    width="320"
+                                 />
                             </div>
-                            <div className="col-10 mt-3">
+                            <div className="col-12 mt-3">
                                 <h2 className="fw-bold mb-4">{post?.post_title}</h2>
                                 <p>{post?.body}</p>
                             </div>
@@ -147,7 +149,7 @@ const PostView = (props) => {
                                 </div>
                             </div>
                             <div className="container mt-3 mb-3">
-                                <h2 className="text-center mb-3">Comments</h2>
+                                <h2 className="text-center">Comments</h2>
                                 {commentList.map((item)=> (
                                     <Comments 
                                         key={item.id}

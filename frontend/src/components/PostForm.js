@@ -181,7 +181,7 @@ const PostForm = () =>{
     }
 
     return(
-    <div className="container mt-4">
+    <div className="container mt-4 container-min">
         <h2 className="text-center header-text">Create Post</h2>
         
         <div className="row justify-content-center">

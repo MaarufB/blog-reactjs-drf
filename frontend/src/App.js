@@ -11,7 +11,7 @@ import {Routes, Route, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './utils/PrivateRoute';
 import Footer from './components/Footer';
-
+import './index.css';
 
 //TEST modules
 

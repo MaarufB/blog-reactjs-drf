@@ -20,7 +20,7 @@ export default function LoginForm(){
     }
     
     return(
-        <div className="container mt-3 p-4">
+        <div className="container mt-3 p-4 container-min"style={{minHeight:"80vh"}}>
             <h2 className="text-center">Login Form</h2>
             <div className="row justify-content-center">
                 <div className="col-md-7 border-radius">
