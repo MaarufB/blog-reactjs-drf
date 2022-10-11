@@ -18,3 +18,8 @@ https://mdbootstrap.com/docs/standard/extended/profiles/
 https://freefrontend.com/bootstrap-profiles/
 
 https://cpske.github.io/ISP/django/separate-model-classes
+
+
+
+>>>>>>>>>>> To Study about the global variable using useContext <<<<<<<<<<
+https://dmitripavlutin.com/react-context-and-usecontext/

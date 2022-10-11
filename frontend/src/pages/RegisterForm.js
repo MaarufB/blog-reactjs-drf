@@ -31,7 +31,7 @@ export default function RegisterForm(){
     }
 
     return(
-        <div className="container mt-3 p-4">
+        <div className="container mt-3 p-4 container-min">
             <h2 className="text-center">Register Form</h2>
             <div className="row justify-content-center">
                 <div className="col-md-7 border-radius">

@@ -6,22 +6,12 @@ import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const MainContent = () => {
-    const {authTokens, user, userProfile} = useContext(AuthContext);   
-    const {access, refresh} = authTokens;
+    const {authTokens:{access}, user, userProfile} = useContext(AuthContext);   
 
-    const tokenConfig = {
-        access: access,
-        refresh: refresh,
-    }
-
-
-    // console.log(`user: ${userProfile} \n${Object.entries(user)}`)
-    // console.log(`username: ${}`)
     const baseURL = "http://127.0.0.1:8000/api";
 
     const [posts, setPosts] = useState([]);
     
-    // navigate
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -35,7 +25,7 @@ const MainContent = () => {
             }
         })
             .then(response => {
-                // console.log(response.data)
+                console.log(response.data)
                 setPosts(response.data);
             })
             .catch(error => {

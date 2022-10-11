@@ -23,7 +23,7 @@ class ProfileAPIView(APIView):
     def get(self, request, pk, format=None):
         profile_model = UserProfile.objects.get(user=pk)
         profile_serializer = UserProfileSerializer(instance=profile_model, many=False)
-        print(f"Get Profile {request}")
+        
 
         return Response(profile_serializer.data)
 

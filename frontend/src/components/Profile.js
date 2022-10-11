@@ -30,7 +30,7 @@ const Profile = () => {
             }
         })
         .then(response => {
-
+            console.log(response.data)
             if (response.status == 200) setProile(response.data); 
             // console.log(response.data);
         })

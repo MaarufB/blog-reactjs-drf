@@ -1,11 +1,7 @@
 import React from "react";
 
 export default function Comments(props){
-
-    const mouseHover = {
-        color: "red"
-    }
-
+    
     return (
         <div className="row justify-content-center mb-3 shadow">
             <div className="col-10 p-2">

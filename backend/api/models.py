@@ -36,7 +36,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post: Post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE, null=True) #related_name="comments"
+    post: Post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     comment_text = models.TextField()
     comment_image = models.ImageField(upload_to=upload_to, blank=True, null=True)

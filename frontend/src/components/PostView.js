@@ -56,15 +56,19 @@ const PostView = (props) => {
         formData.append('post', comment.post);
         formData.append('user', comment.user);
 
+        
+
         await axios.post(`${baseURL}/post-comment/`, formData, {
             headers:{
                 'Authorization': `Bearer ${access}` ,
                 "Content-Type": "application/json",
             },
-        }).then(({data}) => {
-            console.log(data);
+        }).then(({data, status}) => {
+            console.log(`comments \n${data}`);
             comment.comment_text = "";
-            setCommentList(data);
+            if(status == 201){
+                fetchPostById();
+            }
 
         }).catch(({response}) => {
             console.log(response);
@@ -83,6 +87,10 @@ const PostView = (props) => {
             createComment();
         }   
     }
+
+    const commentTest = commentList.map((item) => {
+        console.log(item)
+    })
 
     return (
         <div className="container mt-4 p-3 container">

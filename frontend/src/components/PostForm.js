@@ -95,7 +95,7 @@ const PostForm = () =>{
         // append form Inputs
         formData.append('post_title', post.post_title);
         formData.append('body', post.body);
-        formData.append('user', post.user);
+        formData.append('user_id', post.user);
         formData.append('image', image);
 
         await axios.post(`${baseURL}/blog/`,formData, {

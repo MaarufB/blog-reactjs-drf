@@ -30,6 +30,7 @@ class PostCommentGetPostAPI(APIView):
 
         # test the incoming request data
         input_request = request.data
+        print(f"Test comments: {request.user}")
 
         if comment_serializer.is_valid():
             comment_serializer.save()
