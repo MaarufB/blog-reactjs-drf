@@ -5,7 +5,7 @@ import AuthContext from "../context/AuthContext";
 export function Utils(){
 
     return {
-        getToken: GetToken
+        getToken: GetToken()
     };
 }
 

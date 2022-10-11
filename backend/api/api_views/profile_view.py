@@ -11,12 +11,13 @@ from ..models import (
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 
 from rest_framework.parsers import MultiPartParser, FormParser
 
 class ProfileAPIView(APIView):
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     perser_classes = (MultiPartParser, FormParser)
 
     def get(self, request, pk, format=None):
@@ -44,7 +45,7 @@ class ProfileAPIView(APIView):
         pass
 
 class ProfilePostAPIView(APIView):
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     perser_classes = (MultiPartParser, FormParser)
 
     def get(self, request, format=None):

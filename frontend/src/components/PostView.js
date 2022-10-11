@@ -30,7 +30,7 @@ const PostView = (props) => {
         {
             fetchPostById(params.id)
         }
-    });
+    }, []);
 
     const fetchPostById = async () => {
         await axios.get(`${baseURL}/blog/${params.id}`, {

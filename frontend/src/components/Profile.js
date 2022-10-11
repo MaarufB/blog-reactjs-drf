@@ -8,31 +8,34 @@ import avatar from "../assets/images/avatar.jpg";
 import { useNavigate, Link } from "react-router-dom";
 import {Utils} from "./Utils.js";
 
+
 const Profile = () => {
 
     // const [userProfile, setUserProfile] = useState('');
-    const {user, userProfile} = useContext(AuthContext);
+    const {user, userProfile, authTokens: {access}} = useContext(AuthContext);
     const [userInfo, setUserInfo] = useState(() =>
         user ? userProfile : null
     );
-
-    const {getToken} = Utils;
+    
+    const navigate = useNavigate();
 
     const [profile, setProile] = useState("");
 
-
     const baseURL = `/api`;
+
     const fetchProfile = () => {
          axios.get(`${baseURL}/user-profile/${user.user_id}`,{
             headers:{
-                'Authorization': getToken
+                'Authorization': `Bearer ${access}`
             }
         })
         .then(response => {
-            setProile(response.data);
-            console.log(response.data);
+
+            if (response.status == 200) setProile(response.data); 
+            // console.log(response.data);
         })
-        .catch(error => {
+        .catch(error=> {
+            if(error.response.status == 401) navigate("/login")
             console.log(error);
         })
     }
@@ -77,7 +80,12 @@ const Profile = () => {
                         />
                     </div>
                 </div>
+                <hr />
+                <div className="row">
+                    <h2>Number of posts!</h2>  
+                </div>
             </div>
+            <hr />
         </>
     )
 }

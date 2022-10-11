@@ -8,9 +8,6 @@ Reduce the data being retrieved by the front end
 
 # 2. Add Registration Field where the user is able to update his/her profile
  
-
-
-
 UserProfile Model properties:
     ===========>>> from user model
     id
