@@ -17,28 +17,47 @@ from ..models import (
                         )
 
 
+##TEST
+from ..model_serializer.post_serializers import BlogCreateUpdeteSerializer, BlogDisplaySerializer
+
+
 class BlogListAPIView(APIView):
     permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser, FormParser)
     
     def get(self, request, format=None):
         blog = Post.objects.all()
-        print(f"{request.user}")
+        
         # serializer = PostSerializer(instance=blog, many=True)
-        serializer = PostBaseSerializer(instance=blog, many=True)
+        # serializer = PostBaseSerializer(instance=blog, many=True)
+
+        serializer =  BlogDisplaySerializer(instance=blog, many=True)
         
         return Response(serializer.data)
 
     def post(self, request, format=None):
 
-        serializer = PostSerializer(data=request.data)
+        # serializer = PostSerializer(data=request.data)
 
-        if serializer.is_valid():
-            serializer.save()
+        # if serializer.is_valid():
+        #     serializer.save()
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
         
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+        # TEST
+        # from ..model_serializer import post_serializers
+
+        post_serializer = BlogCreateUpdeteSerializer(data=request.data)
+
+        if post_serializer.is_valid():
+            post_serializer.save()
+
+            return Response(post_serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class BlogDetailAPIView(APIView):

@@ -8,6 +8,7 @@ def upload_to(instance, filename):
 # Create your models here.
 
 def upload_profile(instance, filename):
+    
     return 'profile/{filename}'.format(filename=filename)
 
 class UserProfile(models.Model):
@@ -20,7 +21,9 @@ class UserProfile(models.Model):
 
 class Post(models.Model):
     # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+    # user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
     post_title = models.CharField(max_length=255, null=True)
     image = models.ImageField(upload_to=upload_to, blank=True, null=True) #default="uploads/default.jpg"
     body = models.TextField(null=True)
