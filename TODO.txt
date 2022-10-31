@@ -20,3 +20,17 @@ UserProfile Model properties:
     profile_pic
     age (not neccessary)
     address (not neccessary)
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>Post-Page<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+{
+    id:
+    body:
+    image:
+    title:
+    user_profile: (it can be reusable)
+}
+
+
+>>>>>>>>>>>>>>>>>>>>>>Comments<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+

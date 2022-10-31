@@ -7,10 +7,10 @@ from ..models import UserProfile, User
 
 class UserProfileSerializer(serializers.ModelSerializer):
     # user = UserSerializer(many=False, read_only=False)
-    username = serializers.CharField(source="user.username", read_only=True)
-    email = serializers.CharField(source="user.email", read_only=True)
-    first_name = serializers.CharField(source="user.first_name", read_only=True)
-    last_name = serializers.CharField(source="user.last_name", read_only=True)
+    # username = serializers.CharField(source="user.username", read_only=True)
+    # email = serializers.CharField(source="user.email", read_only=True)
+    # first_name = serializers.CharField(source="user.first_name", read_only=True)
+    # last_name = serializers.CharField(source="user.last_name", read_only=True)
     
     class Meta:
         # user_parent = serializers.ReadOnlyField(source='user')
@@ -21,25 +21,29 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
         fields = (
                   'id',
-                  'username',
-                  'email',
-                  'first_name',
-                  'last_name',
+                #   'first_name',
+                #   'last_name',
                   'profile_pic', 
-                  'user_id', 
-                  'test_data'
+                  'test_data',
+                #   'username',
+                #   'email'
                   )
         # fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):
     user_profile = UserProfileSerializer(many=False, read_only=True)
-    profile_pic = serializers.CharField(source='userprofile.profile_pic')
 
     class Meta:
         model = User
         # fields = ['url', 'username', 'first_name','email', 'groups']
-        fields = ['username', 'first_name','email', 'profile_pic', 'user_profile']
+        fields = (
+                    'id',
+                    'username', 
+                    'first_name',
+                    'last_name',
+                    'email', 
+                    'user_profile')
 
 
 

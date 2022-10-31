@@ -19,31 +19,36 @@ const Profile = () => {
     
     const navigate = useNavigate();
 
-    const [profile, setProile] = useState("");
+    const [profile, setProfile] = useState("");
 
     const baseURL = `/api`;
-
-    const fetchProfile = () => {
-         axios.get(`${baseURL}/user-profile/${user.user_id}`,{
-            headers:{
-                'Authorization': `Bearer ${access}`
-            }
-        })
-        .then(response => {
-            console.log(response.data)
-            if (response.status == 200) setProile(response.data); 
-            // console.log(response.data);
-        })
-        .catch(error=> {
-            if(error.response.status == 401) navigate("/login")
-            console.log(error);
-        })
+    console.log(`User: ${user}`)
+    for(let u of Object.entries(profile)){
+        console.log(u)
     }
+
+
 
     useEffect(() => {
         fetchProfile()
-    },[])
-
+    },[]);
+    
+    const fetchProfile = () => {
+        axios.get(`${baseURL}/user-profile/${user.user_id}`,{
+           headers:{
+               'Authorization': `Bearer ${access}`
+           }
+       })
+       .then(response => {
+           console.log(response.data)
+           if (response.status == 200) setProfile(response.data); 
+           console.log(`data: ${response.data}`);
+       })
+       .catch(error=> {
+           if(error.response.status == 401) navigate("/login")
+           console.log(error);
+       })
+   }
 
     return (
         <>
@@ -52,7 +57,7 @@ const Profile = () => {
                     <div className="col-6 p-2">
                         <div className="container header">
                             <h2>Hi, I am {profile?.first_name}</h2>
-                            <p className="">loresasfdfd</p>
+                            <p className=""></p>
                         </div>
                         <div className="container p-3">
                             <h5>General Info</h5>
@@ -65,9 +70,9 @@ const Profile = () => {
                                 <p className="col my-0">{profile?.email}</p>
                             </div>
                             <div className="row m-0">
+                                <p className="col-3 my-0">address:</p>
                                 <p className="col my-0">Pagadian City, Zamboanga</p>
                             </div>
-                                <p className="col-3 my-0">address:</p>
                         </div>
                         <Link to={`/profile/update/${user.user_id}`}>
                             <button className="btn btn-dark btn-sm">Update</button>
@@ -76,7 +81,7 @@ const Profile = () => {
                     <div className="col-4 p-2">
                         <img 
                             className="img-fluid"
-                            src={profile?.profile_pic || avatar}
+                            src={profile?.user_profile?.profile_pic || avatar}
                         />
                     </div>
                 </div>

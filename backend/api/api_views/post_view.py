@@ -6,11 +6,11 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from django.http import Http404
 
 # Import Serializers
-from ..serializers import (
-                            PostBaseSerializer, 
-                            PostSerializer,
-                            PostCommentSerializer
-                            )
+# from ..serializers import (
+#                             PostBaseSerializer, 
+#                             PostSerializer,
+#                             PostCommentSerializer
+#                             )
 # Import Models
 from ..models import (
                         Post,
@@ -18,7 +18,13 @@ from ..models import (
 
 
 ##TEST
-from ..model_serializer.post_serializers import BlogCreateUpdeteSerializer, BlogDisplaySerializer
+from ..model_serializer.post_serializers import (
+    BlogCreateUpdateSerializer, 
+    BlogDisplaySerializer,
+    PostCommentSerializer,
+    PostBaseSerializer,
+    PostSerializer
+    )
 
 
 class BlogListAPIView(APIView):
@@ -29,11 +35,27 @@ class BlogListAPIView(APIView):
         blog = Post.objects.all()
         
         # serializer = PostSerializer(instance=blog, many=True)
-        # serializer = PostBaseSerializer(instance=blog, many=True)
+        serializer = PostBaseSerializer(instance=blog, many=True)
+        
+        post_list = []
 
-        serializer =  BlogDisplaySerializer(instance=blog, many=True)
+        for data in serializer.data:
+            post_data = {
+                "id":f"{data['id']}",
+                "post_title": f"{data['post_title']}",
+                "body": f"{data['body']}",
+                "image": f"{data['image']}",
+                "pub_date": f"{data['pub_date']}",
+                "update_date": f"{data['update_date']}",
+            }
+            post_list.append(post_data)
+
+        # print(post_list)
+
+        # serializer =  BlogDisplaySerializer(instance=blog, many=True)
         
         return Response(serializer.data)
+        # return Response(post_list)
 
     def post(self, request, format=None):
 
@@ -50,14 +72,20 @@ class BlogListAPIView(APIView):
         # TEST
         # from ..model_serializer import post_serializers
 
-        post_serializer = BlogCreateUpdeteSerializer(data=request.data)
+        post_serializer = BlogCreateUpdateSerializer(data=request.data)
 
         if post_serializer.is_valid():
             post_serializer.save()
 
-            return Response(post_serializer.data, status=status.HTTP_201_CREATED)
+            return Response(
+                            post_serializer.data, 
+                            status=status.HTTP_201_CREATED
+                            )
         
-        return Response(post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+                        post_serializer.errors, 
+                        status=status.HTTP_400_BAD_REQUEST
+                        )
 
 
 class BlogDetailAPIView(APIView):

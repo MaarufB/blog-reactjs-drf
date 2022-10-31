@@ -1,11 +1,12 @@
-from ..serializers import (
+from ..model_serializer.user_profile_serializer import (
                             RegisterUserSerializer,
                             UserProfileSerializer,
                             UserSerializer
                         )
 
 from ..models import (
-                        UserProfile
+                        UserProfile,
+                        User
                     )
 
 from rest_framework import status
@@ -21,9 +22,11 @@ class ProfileAPIView(APIView):
     perser_classes = (MultiPartParser, FormParser)
 
     def get(self, request, pk, format=None):
-        profile_model = UserProfile.objects.get(user=pk)
-        profile_serializer = UserProfileSerializer(instance=profile_model, many=False)
+        print(f"user_profile\n\n")
+        profile_model = User.objects.get(id=pk)
         
+        profile_serializer = UserSerializer(instance=profile_model, many=False)
+        print(f"serializer {profile_serializer.data}")
 
         return Response(profile_serializer.data)
 

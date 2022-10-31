@@ -9,8 +9,8 @@ from .user_profile_serializer import UserProfileSerializer
 
 class PostBaseSerializer(serializers.ModelSerializer):
     # Make a function here that will clean the date_time data
-    user_profile = UserProfileSerializer(many=False, read_only=True)
-    # user = UserSerializer(many=False, read_only=True)
+    # user_profile = UserProfileSerializer(many=False, read_only=True)
+    user = UserSerializer(many=False, read_only=True)
     
     # We will make chages to the data we are returning using source
     # profile_pic = serializers.CharField(source='user.profile_pic', read_only=True)
@@ -39,7 +39,7 @@ class PostCommentSerializer(PostBaseSerializer):
         fields = "__all__"
 
 # POST And update serializer
-class BlogCreateUpdeteSerializer(serializers.ModelSerializer):
+class BlogCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = "__all__"
@@ -76,11 +76,11 @@ class PostSerializer(serializers.ModelSerializer):
         fields = (
                     'id', 
                     'user', 
-                    # 'user_id',
                     'post_title', 
                     'body', 
                     'image', 
-                    # 'comments'
+                    'comments'
                 )
         
         # fields = '__all__'
+

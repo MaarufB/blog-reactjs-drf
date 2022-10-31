@@ -90,8 +90,8 @@ class CommentsSerializer(serializers.ModelSerializer):
 
 class PostBaseSerializer(serializers.ModelSerializer):
     # Make a function here that will clean the date_time data
-    # user = UserProfileSerializer(many=False, read_only=True)
-    user = UserSerializer(many=False, read_only=True)
+    user = UserProfileSerializer(many=False, read_only=True)
+    # user = UserSerializer(many=False, read_only=True)
     
     # We will make chages to the data we are returning using source
     # profile_pic = serializers.CharField(source='user.profile_pic', read_only=True)

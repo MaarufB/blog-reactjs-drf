@@ -6,7 +6,10 @@ import avatar from "../assets/images/avatar.jpg";
 
 const PostList = (props) => {
     const description = (props.body.length > 200) ? props.body.slice(0,200) + " ......Read More" : props.body;
-    const profile_pic = props.user ? props.user?.profile_pic : avatar;
+    // const profile_pic = props.user ? props.user?.profile_pic : avatar;
+    
+    const {user_profile:{profile_pic}} = props.user;
+    
 
     return ( 
         <div className="container mb-3 shadow">
