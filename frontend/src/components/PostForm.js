@@ -14,20 +14,21 @@ const PostForm = () =>{
     // Base URL
     const baseURL = "/api";
 
-    const {authTokens} = useContext(AuthContext);
-    const {access, refresh} = authTokens;
+    const {user, authTokens:{access}} = useContext(AuthContext);
+    // const {access, refresh} = authTokens;
 
     const [post, setPost] = useState({
-        user: 1,
-        user_id:1,
+        user: parseInt(user.user_id),
         post_title: "",
         body: ""
     });
-    const [actionType, setActionType] = useState("post");
 
-    const [inputs, setInputs] = useState({
 
-    });
+    // const [actionType, setActionType] = useState("post");
+
+    // const [inputs, setInputs] = useState({
+
+    // });
 
     const [image, setImage] = useState();
     // const [inputs, setInputs] = useState(null);
@@ -95,8 +96,10 @@ const PostForm = () =>{
         // append form Inputs
         formData.append('post_title', post.post_title);
         formData.append('body', post.body);
-        formData.append('user_id', post.user);
+        formData.append('user', post.user);
         formData.append('image', image);
+        
+        console.log(formData);
 
         await axios.post(`${baseURL}/blog/`,formData, {
             headers: {

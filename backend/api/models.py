@@ -8,10 +8,11 @@ def upload_to(instance, filename):
 # Create your models here.
 
 def upload_profile(instance, filename):
+    
     return 'profile/{filename}'.format(filename=filename)
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    user = models.OneToOneField(to=User, related_name="user_profile",on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to=upload_profile, null=True, blank=True)
     test_data = models.CharField(max_length=200, null=True)
     
@@ -19,8 +20,8 @@ class UserProfile(models.Model):
         return str(self.user)
 
 class Post(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     post_title = models.CharField(max_length=255, null=True)
     image = models.ImageField(upload_to=upload_to, blank=True, null=True) #default="uploads/default.jpg"
     body = models.TextField(null=True)
@@ -36,7 +37,12 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post: Post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE, null=True)
+    post: Post = models.ForeignKey(
+                                    Post, 
+                                    related_name='comments', 
+                                    on_delete=models.CASCADE, 
+                                    null=True)
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     comment_text = models.TextField()
     comment_image = models.ImageField(upload_to=upload_to, blank=True, null=True)

@@ -70,7 +70,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             token['user_profile'] = user_profile_serializer.data
             print(f"Profile {token['user_profile']}")
 
-        # token['user_profile'] = None
+        token['user_profile'] = None
 
         if token['user_profile'] is None:
             print(f"UserProfile is None {token['user_profile']}")

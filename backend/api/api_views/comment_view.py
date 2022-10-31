@@ -2,9 +2,14 @@ from rest_framework.views import APIView
 from rest_framework.response import  Response
 from rest_framework import status
 from django.http import Http404
-from ..serializers import (
+# from ..serializers import (
+#                             CommentsSerializer,
+#                             )
+from ..model_serializer.comment_serializer import (
                             CommentsSerializer,
+                            CommentsCRUDSerializer
                             )
+
 from ..models import (
                         Comment,
 
@@ -26,7 +31,8 @@ class PostCommentGetPostAPI(APIView):
         return Response(comment_serializer.data)
 
     def post(self, request, format=None):
-        comment_serializer = CommentsSerializer(data=request.data)
+        # comment_serializer = CommentsSerializer(data=request.data)
+        comment_serializer = CommentsCRUDSerializer(data=request.data)
 
         # test the incoming request data
         input_request = request.data

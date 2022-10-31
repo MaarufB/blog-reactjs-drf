@@ -37,8 +37,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             user_profile_serializer = UserProfileSerializer(instance=user_model)
             
             token['user_profile'] = user_profile_serializer.data
-        
-        token['user_profile'] = None
+        else:
+            token['user_profile'] = None
         
         return token
 

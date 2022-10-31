@@ -9,15 +9,16 @@ import AuthContext from "../context/AuthContext";
 
 const PostView = (props) => {
     const baseURL = "/api";
-    const { authTokens } = useContext(AuthContext);
+    const { user:{user_id}, authTokens } = useContext(AuthContext);
     const {access} = authTokens;
 
     const params = useParams();
     
     const [post, setPost] = useState(null);
     const [commentList, setCommentList] = useState([]);
+    
     const [comment, setComment] = useState({
-        id: 90,
+        id: 0,
         comment_text: "",
         post: params.id,
         user: 1
@@ -48,13 +49,14 @@ const PostView = (props) => {
             })
     }
 
+    console.log(user_id)
 
     const createComment = async () => {
         const formData = new FormData();
         formData.append('id', comment.id);
         formData.append('comment_text', comment.comment_text);
         formData.append('post', comment.post);
-        formData.append('user', comment.user);
+        formData.append('user', parseInt(user_id));
 
         
 
@@ -64,7 +66,7 @@ const PostView = (props) => {
                 "Content-Type": "application/json",
             },
         }).then(({data, status}) => {
-            console.log(`comments \n${data}`);
+            // console.log(`comments \n${data}`);
             comment.comment_text = "";
             if(status == 201){
                 fetchPostById();
@@ -88,9 +90,9 @@ const PostView = (props) => {
         }   
     }
 
-    const commentTest = commentList.map((item) => {
-        console.log(item)
-    })
+    // const commentTest = commentList.map((item) => {
+    //     console.log(item)
+    // })
 
     return (
         <div className="container mt-4 p-3 container">
@@ -158,10 +160,15 @@ const PostView = (props) => {
                             </div>
                             <div className="container mt-3 mb-3">
                                 <h2 className="text-center">Comments</h2>
-                                {commentList.map((item)=> (
+                                {commentList.map(({id, comment_text, user})=> (
                                     <Comments 
-                                        key={item.id}
-                                        commentText={item.comment_text}>
+                                        // key={item.id}
+                                        // commentText={item.comment_text}
+                                        // username={}
+                                        key={id}
+                                        commentText={comment_text}
+                                        user={user}
+                                        >
                                     </Comments>
                                 ))}                    
                             </div>

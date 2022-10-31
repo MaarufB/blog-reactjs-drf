@@ -91,28 +91,32 @@ class CommentsSerializer(serializers.ModelSerializer):
 class PostBaseSerializer(serializers.ModelSerializer):
     # Make a function here that will clean the date_time data
     user = UserProfileSerializer(many=False, read_only=True)
+    # user = UserSerializer(many=False, read_only=True)
     
     # We will make chages to the data we are returning using source
-    profile_pic = serializers.CharField(source='user.profile_pic', read_only=True)
+    # profile_pic = serializers.CharField(source='user.profile_pic', read_only=True)
     
     class Meta:
         # profile_pic = serializers.ReadOnlyField(source="userprofile.profile_pic")
         model = Post
-        fields = [  'id', 
-                    'user', 
-                    'profile_pic',
-                    'user_id',
-                    'post_title', 
-                    'body', 
-                    'image'
-                ]
+        # fields = [  'id', 
+        #             'user', 
+        #             'profile_pic',
+        #             'user_id',
+        #             'post_title', 
+        #             'body', 
+        #             'image'
+        #         ]
+
+        fields = "__all__"
 
 class PostCommentSerializer(PostBaseSerializer):
     comments = CommentsSerializer(many=True, read_only=True)    
     class Meta(PostBaseSerializer.Meta):
-        fields = PostBaseSerializer.Meta.fields + [
-            'comments'   
-        ]
+        # fields = PostBaseSerializer.Meta.fields + [
+        #     'comments'   
+        # ]
+        fields = "__all__"
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -125,11 +129,11 @@ class PostSerializer(serializers.ModelSerializer):
         fields = (
                     'id', 
                     'user', 
-                    'user_id',
+                    # 'user_id',
                     'post_title', 
                     'body', 
                     'image', 
-                    'comments'
+                    # 'comments'
                 )
         
         # fields = '__all__'
