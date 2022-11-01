@@ -1,7 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import  Response
 from rest_framework import status
-from ..serializers import (
+# from ..serializers import (
+#                             RegisterUserSerializer,
+#                             UserProfileSerializer,
+#                             UserProfile,
+#                             )
+
+from ..model_serializer.user_profile_serializer import (
                             RegisterUserSerializer,
                             UserProfileSerializer,
                             UserProfile,

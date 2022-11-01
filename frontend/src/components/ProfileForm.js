@@ -12,23 +12,17 @@ import {
 
 import AuthContext from "../context/AuthContext";
 
-const initialData =(id)=> 
-{
-    return {
-    email: "maarufb@gmail.com",
-    first_name: "Ma-aruf",
-    last_name: "Burad",
-    profile_pic: "",
-    user_id: id,
-    username: "maarufb"
-    }
-}
-
 const ProfileForm = (props) => {
 
     const params = useParams();
     const navigate = useNavigate();
-    const [profile, setProfile] = useState(initialData(params.id));
+    const [profile, setProfile] = useState({
+        user_id: 0,
+        profile_id: 0,
+        first_name: "",
+        last_name: "",
+        test_data: ""
+    });
     const [imageProfile, setImageProfile] = useState(null);
     const baseURL = "/api";
 
@@ -66,7 +60,12 @@ const ProfileForm = (props) => {
             formData.append('profile_pic', imageProfile);
             // return
         } 
+
         formData.append("first_name", profile.first_name);
+        formData.append("last_name", profile.last_name);
+        formData.append("user_id", params.id);
+        formData.append('profile_id', profile.user_profile.id);
+        formData.append("address", profile.address);
 
         axios.put(`${baseURL}/user-profile/${params.id}/`, formData,{
             headers:{
@@ -79,7 +78,6 @@ const ProfileForm = (props) => {
         })
         .catch((error) => {
             console.log(error);
-            console.log(formData)
         }) 
     }
 
@@ -89,8 +87,9 @@ const ProfileForm = (props) => {
         if (event.target.name === "profile_pic") {
             setImageProfile(event.target.files[0]);
         }
-
         setProfile(eventData);
+        
+        console.log(eventData);
 
     }
 
@@ -137,14 +136,14 @@ const ProfileForm = (props) => {
                                 </input>
                             </div>
                             <div className="mb-2">
-                                <label>username</label>
+                                <label>address</label>
                                 <input 
                                     className="form-control input-field"
-                                    name="username"
+                                    name="address"
                                     type="text"
-                                    id="username"
-                                    placeholder="username"
-                                    value={profile?.username}
+                                    id="address"
+                                    placeholder="address"
+                                    value={profile?.address}
                                     onChange={handleChange} 
                                     
                                     >
