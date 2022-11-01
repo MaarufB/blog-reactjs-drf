@@ -23,7 +23,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = (
                   'id',
                   'profile_pic', 
-                  'test_data',
+                  'address',
                   )
         # fields = '__all__'
 
@@ -52,7 +52,7 @@ class UserProfileCRUDSerializer(serializers.ModelSerializer):
                   'id',
                   'profile_id',
                   'profile_pic', 
-                  'test_data',
+                  'address',
 
                   # user model
                   'user_id',
@@ -80,11 +80,11 @@ class UserProfileCRUDSerializer(serializers.ModelSerializer):
 
             if "profile_id" in request_data:
                 user_profile = UserProfile.objects.get(id=int(request_data['profile_id']))
-                user_profile.test_data = request_data['test_data']
+                user_profile.address = request_data['address']
                 if "profile_pic" in request_data:
                     user_profile.profile_pic = request_data['profile_pic']  
                 user_profile.save()
-                
+
         return request_data
 
 

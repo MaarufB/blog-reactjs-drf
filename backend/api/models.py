@@ -14,7 +14,7 @@ def upload_profile(instance, filename):
 class UserProfile(models.Model):
     user = models.OneToOneField(to=User, related_name="user_profile",on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to=upload_profile, null=True, blank=True)
-    test_data = models.CharField(max_length=200, null=True)
+    address = models.CharField(max_length=200, null=True)
     
     def __str__(self):
         return str(self.user)

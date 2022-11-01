@@ -72,7 +72,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
                   'last_name',
                   'profile_pic', 
                   'user_id', 
-                  'test_data'
+                  'address'
                   )
         # fields = '__all__'
 
