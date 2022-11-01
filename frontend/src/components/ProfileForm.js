@@ -60,11 +60,13 @@ const ProfileForm = (props) => {
     
     const updateProfile = () => {
         const formData = new FormData();
-        formData.append('profile_pic', imageProfile);
-        if (!imageProfile){
-            navigate("/profile")
-            return
+        // formData.append('profile_pic', imageProfile);
+        if (imageProfile){
+            // navigate("/profile")
+            formData.append('profile_pic', imageProfile);
+            // return
         } 
+        formData.append("first_name", profile.first_name);
 
         axios.put(`${baseURL}/user-profile/${params.id}/`, formData,{
             headers:{

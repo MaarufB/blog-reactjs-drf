@@ -179,6 +179,5 @@ const PostView = (props) => {
         </div>
     )
 }
-
 export default PostView;
 
