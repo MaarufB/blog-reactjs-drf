@@ -1,0 +1,1 @@
+https://sweetcode.io/how-to-serialize-data-with-django-rest-framework/
