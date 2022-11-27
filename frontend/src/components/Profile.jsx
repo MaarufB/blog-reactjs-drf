@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import avatar from "../assets/images/avatar.jpg";
 import { useNavigate, Link } from "react-router-dom";
-import {Utils} from "./Utils.js";
+import {Utils} from "./Utils.jsx";
 
 
 const Profile = () => {

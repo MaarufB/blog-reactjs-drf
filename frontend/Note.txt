@@ -1,3 +1,11 @@
 I Encoutered an error everytime I run "npm start" when there is no Internet Connectivity on my Machine
 
 https://exerror.com/invalid-options-object-dev-server-has-been-initialized-using-an-options-object-that-does-not-match-the-api-schema/
+
+
+
+### Migrating from CRA to vite
+
+https://craftsmenltd.com/blog/2022/06/23/migrating-your-create-react-app-project-to-vite/
+https://www.darraghoriordan.com/2021/05/16/migrating-from-create-react-app-to-vite/
+https://www.youtube.com/watch?v=YT35buXMgL8
