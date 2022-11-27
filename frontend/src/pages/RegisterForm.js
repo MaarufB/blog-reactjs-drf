@@ -1,3 +1,4 @@
+import React from "react";
 import { Link, Navigate } from "react-router-dom"
 import { useState, useContext } from "react"
 import AuthContext from "../context/AuthContext"
@@ -45,7 +46,7 @@ export default function RegisterForm(){
                                 name="first_name"
                                 id="first_name"
                                 onChange={handleChange}
-                                value={userCredential?.first_name}
+                                value={userCredential.first_name}
                                 placeholder="first name" />
                         </div>
 
@@ -57,7 +58,7 @@ export default function RegisterForm(){
                                 name="last_name"
                                 id="last_name"
                                 onChange={handleChange}
-                                value={userCredential?.last_name}
+                                value={userCredential.last_name}
                                 placeholder="last name" />
                         </div>
 
@@ -69,7 +70,7 @@ export default function RegisterForm(){
                                 name="username"
                                 id="username"
                                 onChange={handleChange}
-                                value={userCredential?.username}
+                                value={userCredential.username}
                                 placeholder="username" />
                         </div>
 
@@ -80,7 +81,7 @@ export default function RegisterForm(){
                                 name="password"
                                 id="password"
                                 onChange={handleChange}
-                                value={userCredential?.password}
+                                value={userCredential.password}
                                 type="password"
                                 placeholder="password" />
                         </div>
@@ -91,7 +92,7 @@ export default function RegisterForm(){
                                 name="password2"
                                 id="password2"
                                 onChange={handleChange}
-                                value={userCredential?.password2}
+                                value={userCredential.password2}
                                 type="password"
                                 placeholder="Confirm Password" />
                         </div>

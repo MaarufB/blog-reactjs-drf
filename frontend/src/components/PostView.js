@@ -129,7 +129,7 @@ const PostView = (props) => {
                                 // maxHeight:"50vh"
                             }}>
                                <img className="img-fluid border" 
-                                    src={post?.image} 
+                                    src={post.image} 
                                     alt="post"
                                     loading="lazy"
                                     // height="320"
@@ -137,8 +137,8 @@ const PostView = (props) => {
                                  />
                             </div>
                             <div className="col-12 mt-3">
-                                <h2 className="fw-bold mb-4">{post?.post_title}</h2>
-                                <p>{post?.body}</p>
+                                <h2 className="fw-bold mb-4">{post.post_title}</h2>
+                                <p>{post.body}</p>
                             </div>
                         </div>
 
@@ -150,7 +150,7 @@ const PostView = (props) => {
                                         className="form-control" 
                                         name="comment_text"
                                         onChange={handleChange}
-                                        value={comment?.comment_text}
+                                        value={comment.comment_text}
                                         placeholder="Type your comment here..." 
                                         rows="2">
                                         </textarea>

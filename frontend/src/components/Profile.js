@@ -50,24 +50,26 @@ const Profile = () => {
        })
    }
 
+   const profile_pic = profile ? profile.user_profile.profile_pic : avatar;
+   
     return (
         <>
             <div className="container justify-content-center my-4 shadow p-4 container-min">
                 <div className="row justify-content-center">
                     <div className="col-6 p-2">
                         <div className="container header">
-                            <h2>Hi, I am {profile?.first_name}</h2>
+                            <h2>Hi, I am {profile.first_name}</h2>
                             <p className=""></p>
                         </div>
                         <div className="container p-3">
                             <h5>General Info</h5>
                             <div className="row m-0">
                                 <p className="col-3 my-0">username:</p>
-                                <p className="col my-0">{profile?.username}</p>
+                                <p className="col my-0">{profile.username}</p>
                             </div>
                             <div className="row m-0">
                                 <p className="col-3 my-0">email:</p>
-                                <p className="col my-0">{profile?.email}</p>
+                                <p className="col my-0">{profile.email}</p>
                             </div>
                             <div className="row m-0">
                                 <p className="col-3 my-0">address:</p>
@@ -81,7 +83,7 @@ const Profile = () => {
                     <div className="col-4 p-2">
                         <img 
                             className="img-fluid"
-                            src={profile?.user_profile?.profile_pic || avatar}
+                            src={profile_pic}
                         />
                     </div>
                 </div>

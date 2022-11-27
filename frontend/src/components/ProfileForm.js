@@ -1,3 +1,4 @@
+import React from "react";
 import axios from "axios";
 import { 
     useState, 
@@ -114,7 +115,7 @@ const ProfileForm = (props) => {
                                     type="text"
                                     id="first_name"
                                     placeholder="First Name"
-                                    value={profile?.first_name}
+                                    value={profile.first_name}
                                     onChange={handleChange}
                                     >
                                 
@@ -128,7 +129,7 @@ const ProfileForm = (props) => {
                                     type="text"
                                     id="last_name"
                                     placeholder="Last Name"
-                                    value={profile?.last_name}
+                                    value={profile.last_name}
                                     onChange={handleChange}
                                     
                                     >
@@ -143,7 +144,7 @@ const ProfileForm = (props) => {
                                     type="text"
                                     id="address"
                                     placeholder="address"
-                                    value={profile?.address}
+                                    value={profile.address}
                                     onChange={handleChange} 
                                     
                                     >

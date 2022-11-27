@@ -28,7 +28,7 @@ const PostList = (props) => {
                             }}
                             />
                             
-                        <p className="post-user mx-3">{props.user?.username || "anonymous"}</p>
+                        <p className="post-user mx-3">{props.user.username || "anonymous"}</p>
                         <span className="ms-auto">
                             <p 
                                 data-bs-toggle="dropdown" 

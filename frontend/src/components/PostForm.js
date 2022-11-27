@@ -197,7 +197,7 @@ const PostForm = () =>{
                             className="form-control input-field"
                             name="post_title"
                             onChange={handleChange}
-                            value={post?.post_title}
+                            value={post.post_title}
                             placeholder="Title" />
                     </div>
 
@@ -207,7 +207,7 @@ const PostForm = () =>{
                             className="form-control input-field"
                             name="body"
                             onChange={handleChange}
-                            value={post?.body}
+                            value={post.body}
                             placeholder="Description" />
                     </div>
 

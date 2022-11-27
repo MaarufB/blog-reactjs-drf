@@ -7,8 +7,9 @@ import avatar from "../assets/images/avatar.jpg";
 
 const NavBar = () =>{
     let {user, logoutUser, userProfile} = useContext(AuthContext);
-    
-    const profile_pic = userProfile?.profile_pic ? userProfile?.profile_pic : avatar;
+    console.log(user);
+
+    // const profile_pic = userProfile ? userProfile?.profile_pic : avatar;
 
     const [getUser, setUser] = useState(null); 
 
@@ -134,7 +135,7 @@ const NavBar = () =>{
           aria-expanded="false"
         >
           <img
-            src={profile_pic}
+            src={avatar}
             className="rounded-circle"
             height="32"
             width="32"

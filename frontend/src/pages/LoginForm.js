@@ -33,7 +33,7 @@ export default function LoginForm(){
                                 name="username"
                                 id="username"
                                 onChange={handleChange}
-                                value={loginCredential?.username}
+                                value={loginCredential.username}
                                 placeholder="username" />
                         </div>
 
@@ -44,7 +44,7 @@ export default function LoginForm(){
                                 name="password"
                                 id="password"
                                 onChange={handleChange}
-                                value={loginCredential?.password}
+                                value={loginCredential.password}
                                 type="password"
                                 placeholder="password" />
                         </div>
