@@ -31,19 +31,19 @@ class ProfileAPIView(APIView):
         return Response(profile_serializer.data)
 
     def put(self, request, pk, format=None):
-        auth_content = request.auth
+     
         # print(f"user auth: {auth_content}")
         # print(f"request: {request.data}")
 
         user = User.objects.get(id=pk)
         profile_serializer = UserProfileCRUDSerializer(instance=user, data=request.data)
-        print(request.FILES)
+        
         if profile_serializer.is_valid():
             validated_data = profile_serializer.validated_data
             print(validated_data)
-            profile_serializer.create_update(validated_data)
-    
-            return Response(profile_serializer.data)
+            user_profile = profile_serializer.create_update(validated_data, user_id=pk)
+
+            return Response(UserProfileSerializer(instance=user_profile).data)
 
         else:
             print(f"Request is not valid")

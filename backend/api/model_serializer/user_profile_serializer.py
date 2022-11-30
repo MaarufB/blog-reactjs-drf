@@ -25,7 +25,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
                   'first_name',
                   'last_name',
                   'profile_pic', 
-                  'address'
+                  'address',
+                  'user_id'
                   )
         # fields = '__all__'
 
@@ -121,11 +122,12 @@ class UserProfileCRUDSerializer(serializers.ModelSerializer):
     #     return "Saved"
 
 
-    def create_update(self, validated_data):
+    def create_update(self, validated_data, user_id):
         
         if validated_data:
-            user_id = validated_data['user_id']
-            user_exist = User.objects.filter(pk=int(validated_data['user_id'])).exists()
+            user_id = user_id #validated_data['user_id']
+            user_exist = User.objects.filter(pk=user_id).exists()
+            # print(validated_data)
             
             if user_exist:
                 user = User.objects.get(id=int(user_id))
@@ -134,20 +136,21 @@ class UserProfileCRUDSerializer(serializers.ModelSerializer):
                 if profile_exist:
                     # If the profile is exist, we just need to perform an update here 
                     print("exist")
-                    user_profile_fields = ['last_name', 'first_name', 'address', 'profile_pic']
-                    user_profile = UserProfile.objects.get(user_id=int(validated_data['user_id']))
-                    for i in validated_data:
-                        if i in user_profile_fields:
-                            if i == "user_profile":
-                                user_profile.i = File(validated_data[i])
-                                user_profile.save()
-                                continue
-                            user_profile.i = validated_data[i]
-                            user_profile.save()
-                            print(f"fields: {validated_data[i]}")
-                    
-                    user_profile.save()
+                    # user_profile = UserProfile.objects.get(user_id=int(user_id))
+                    user_profile = UserProfile.objects.filter(user_id__exact=int(user_id)).update(**validated_data)
+   
+                    # This works
+                    # if ""
+                    # user_profile.first_name = validated_data['first_name']
+                    # user_profile.last_name = validated_data['last_name']
+                    # user_profile.address = validated_data['address']
+
+
+                    # user_profile.save()
+                    print(user_profile)
                     print(f"Profile Updated")
+                    
+                    return validated_data
                     # user_profile = UserProfile.objects.get(user_id=int(validated_data['user_id']))
 
                 elif not profile_exist:
