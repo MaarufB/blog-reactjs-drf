@@ -56,10 +56,10 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem("authTokens", JSON.stringify(data));
             // setUserProfile(user ? user.user_profile.profile_pic : null);
             
-            console.log(jwt_decode(data.access));
+            // console.log(jwt_decode(data.access));
             
             navigate("/");
-            console.log(`Successfully Logged In~~~`)
+            // console.log(`Successfully Logged In~~~`)
             
         } else {
             alert("Something went wrong!");
@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }) => {
             })
         });
         if (response.status === 201) {
-            console.log(`Successfully registered!!`)
+            // console.log(`Successfully registered!!`)
             navigate("/login");
         } else {
             alert("Something went wrong!");

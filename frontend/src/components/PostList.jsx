@@ -9,7 +9,10 @@ const PostList = (props) => {
     // const profile_pic = props.user ? props.user?.profile_pic : avatar;
     
     const {user_profile:{profile_pic}} = props.user;
-    
+    const baseURL = "http://127.0.0.1:8000";
+    const imageUrl = `${baseURL}${props.image}`;
+    // console.log(props.image)
+    const imageProfileURL = `${baseURL}${profile_pic}`;
 
     return ( 
         <div className="container mb-3 shadow">
@@ -19,6 +22,7 @@ const PostList = (props) => {
                         <img
                             className="rounded-cicle"
                             src= {`${profile_pic}`}
+                            // src= {imageProfileURL}
                             loading="lazy"
                             alt="Profile image"
                             height="50"
@@ -60,6 +64,7 @@ const PostList = (props) => {
                     <img
                         className="post-image"
                         src={props.image}
+                        // src={imageUrl}
                         alt="post by the user"
                         loading="lazy"
                         height="320"

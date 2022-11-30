@@ -14,16 +14,19 @@ import {
 import AuthContext from "../context/AuthContext";
 
 const ProfileForm = (props) => {
+    
 
     const params = useParams();
     const navigate = useNavigate();
-    const [profile, setProfile] = useState({
-        user_id: 0,
-        profile_id: 0,
+    const initialData = {
+        // user_id: params.id,
         first_name: "",
         last_name: "",
-        test_data: ""
-    });
+        address: ""
+    }
+    const [profile, setProfile] = useState(initialData);
+
+
     const [imageProfile, setImageProfile] = useState(null);
     const baseURL = "/api";
 
@@ -38,13 +41,20 @@ const ProfileForm = (props) => {
     },[])
 
     const fetchProfile = async () => {
-        await axios.get(`${baseURL}/user-profile/${params.id}`, {
+        await axios.get(`${baseURL}/user-profile/${params?.id}`, {
             headers: {
                 'Authorization': `Bearer ${access}`
             }
         })
         .then(response => {
-            setProfile(response.data);
+            const {user_profile} = response.data;
+            console.log(response.data)
+            if(user_profile){
+                setProfile(user_profile);
+            }
+            else{
+                setProfile(initialData);
+            }
         })
         .catch(error => {
             console.log(error);
@@ -65,7 +75,7 @@ const ProfileForm = (props) => {
         formData.append("first_name", profile.first_name);
         formData.append("last_name", profile.last_name);
         formData.append("user_id", params.id);
-        formData.append('profile_id', profile.user_profile.id);
+        // formData.append('profile_id', profile.user_profile.id);
         formData.append("address", profile.address);
 
         axios.put(`${baseURL}/user-profile/${params.id}/`, formData,{
@@ -75,7 +85,7 @@ const ProfileForm = (props) => {
         }
         })
         .then((response) => {
-            if(response.status == 200) navigate("/profile")
+            // if(response.status == 200) navigate("/profile")
         })
         .catch((error) => {
             console.log(error);
@@ -115,7 +125,7 @@ const ProfileForm = (props) => {
                                     type="text"
                                     id="first_name"
                                     placeholder="First Name"
-                                    value={profile.first_name}
+                                    value={profile?.first_name}
                                     onChange={handleChange}
                                     >
                                 
@@ -129,7 +139,7 @@ const ProfileForm = (props) => {
                                     type="text"
                                     id="last_name"
                                     placeholder="Last Name"
-                                    value={profile.last_name}
+                                    value={profile?.last_name}
                                     onChange={handleChange}
                                     
                                     >
@@ -144,7 +154,7 @@ const ProfileForm = (props) => {
                                     type="text"
                                     id="address"
                                     placeholder="address"
-                                    value={profile.address}
+                                    value={profile?.address}
                                     onChange={handleChange} 
                                     
                                     >

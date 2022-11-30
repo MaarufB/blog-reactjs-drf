@@ -13,6 +13,8 @@ def upload_profile(instance, filename):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(to=User, related_name="user_profile",on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=250, null=True)
+    last_name = models.CharField(max_length=250, null=True)
     profile_pic = models.ImageField(upload_to=upload_profile, null=True, blank=True)
     address = models.CharField(max_length=200, null=True)
     

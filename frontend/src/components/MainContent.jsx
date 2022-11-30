@@ -19,17 +19,17 @@ const MainContent = () => {
     },[]);
 
     const fetchPost = async () => {
-        await axios.get(`${baseURL}/blog`, {
+        await axios.get(`${baseURL}/blog/`, {
             headers:{
                 'Authorization': `Bearer ${access}`,
             }
         })
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 setPosts(response.data);
             })
             .catch(error => {
-                console.log(error.response.status)
+                // console.log(error.response.status)
                 
                 if (error.response.status == 401){
                     navigate('/login');
@@ -37,6 +37,8 @@ const MainContent = () => {
 
             })
     }
+
+    console.log(posts);
     
     return (
     <div className="container mt-4">

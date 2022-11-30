@@ -12,20 +12,15 @@ import {Utils} from "./Utils.jsx";
 const Profile = () => {
 
     // const [userProfile, setUserProfile] = useState('');
-    const {user, userProfile, authTokens: {access}} = useContext(AuthContext);
-    const [userInfo, setUserInfo] = useState(() =>
-        user ? userProfile : null
-    );
+    const {user, authTokens: {access}} = useContext(AuthContext);
+    const [profilePic, setProfilePic] = useState("");
     
     const navigate = useNavigate();
 
-    const [profile, setProfile] = useState("");
+    const [userProfile, setUserProfile] = useState(null);
 
     const baseURL = `/api`;
-    console.log(`User: ${user}`)
-    for(let u of Object.entries(profile)){
-        console.log(u)
-    }
+
 
 
 
@@ -41,8 +36,12 @@ const Profile = () => {
        })
        .then(response => {
            console.log(response.data)
-           if (response.status == 200) setProfile(response.data); 
-           console.log(`data: ${response.data}`);
+           if (response.status == 200) {
+            setUserProfile(response.data);
+            const {user_profile} = response.data
+            setProfilePic(user_profile?.profile_pic || avatar);
+            // console.log(response.data)
+        } 
        })
        .catch(error=> {
            if(error.response.status == 401) navigate("/login")
@@ -50,40 +49,43 @@ const Profile = () => {
        })
    }
 
-   const profile_pic = profile ? profile.user_profile.profile_pic : avatar;
+
    
+//    return <>
+//     <h1>Hello</h1>
+//    </>
     return (
         <>
             <div className="container justify-content-center my-4 shadow p-4 container-min">
                 <div className="row justify-content-center">
                     <div className="col-6 p-2">
                         <div className="container header">
-                            <h2>Hi, I am {profile.first_name}</h2>
+                            <h2>Hi, I am {userProfile?.first_name || ""}</h2>
                             <p className=""></p>
                         </div>
                         <div className="container p-3">
                             <h5>General Info</h5>
                             <div className="row m-0">
-                                <p className="col-3 my-0">username:</p>
-                                <p className="col my-0">{profile.username}</p>
+                                <p className="col-3 my-0">username: </p>
+                                <p className="col my-0">{userProfile?.username || ""}</p>
                             </div>
                             <div className="row m-0">
                                 <p className="col-3 my-0">email:</p>
-                                <p className="col my-0">{profile.email}</p>
+                                <p className="col my-0">{userProfile?.email || ""}</p>
                             </div>
                             <div className="row m-0">
                                 <p className="col-3 my-0">address:</p>
                                 <p className="col my-0">Pagadian City, Zamboanga</p>
                             </div>
                         </div>
-                        <Link to={`/profile/update/${user.user_id}`}>
+                        <Link to={`/profile/update/${userProfile?.id}`}>
                             <button className="btn btn-dark btn-sm">Update</button>
                         </Link>
                     </div>
                     <div className="col-4 p-2">
                         <img 
                             className="img-fluid"
-                            src={profile_pic}
+                            src={userProfile ?.profile_pic || avatar}
                         />
                     </div>
                 </div>

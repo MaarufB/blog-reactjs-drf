@@ -7,7 +7,7 @@ import avatar from "../assets/images/avatar.jpg";
 
 const NavBar = () =>{
     let {user, logoutUser, userProfile} = useContext(AuthContext);
-    console.log(user);
+    // console.log(user);
 
     // const profile_pic = userProfile ? userProfile?.profile_pic : avatar;
 

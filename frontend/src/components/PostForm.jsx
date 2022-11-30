@@ -12,7 +12,7 @@ const PostForm = () =>{
     const navigate = useNavigate();
 
     // Base URL
-    const baseURL = "/api";
+    const baseURL = `http://127.0.0.1:8000/api`;
 
     const {user, authTokens:{access}} = useContext(AuthContext);
     // const {access, refresh} = authTokens;

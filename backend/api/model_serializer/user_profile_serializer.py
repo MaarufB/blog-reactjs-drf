@@ -3,7 +3,7 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from ..models import UserProfile, User
 import json
-
+from django.core.files import File
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -22,8 +22,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
         fields = (
                   'id',
+                  'first_name',
+                  'last_name',
                   'profile_pic', 
-                  'address',
+                  'address'
                   )
         # fields = '__all__'
 
@@ -32,11 +34,12 @@ class UserProfileCRUDSerializer(serializers.ModelSerializer):
     
     # username = serializers.CharField(source="user.username", read_only=True)
     # email = serializers.CharField(source="user.email", read_only=True)
-    user_id = serializers.CharField(required=True)
-    first_name = serializers.CharField()
-    last_name = serializers.CharField()
-    username = serializers.CharField()
-    profile_id = serializers.CharField()
+    user_id = serializers.CharField(required=False)
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
+    username = serializers.CharField(required=False)
+    address = serializers.CharField(required=False)
+    profile_id = serializers.CharField(required=False)
 
     # last_name = serializers.CharField(source="user.last_name", read_only=True)
     
@@ -49,7 +52,7 @@ class UserProfileCRUDSerializer(serializers.ModelSerializer):
 
         fields = (
                     #user profile model
-                  'id',
+                #   'id',
                   'profile_id',
                   'profile_pic', 
                   'address',
@@ -62,31 +65,106 @@ class UserProfileCRUDSerializer(serializers.ModelSerializer):
                   )
         # fields = '__all__'
 
-    def validate(self, attrs):
-        request_data = None
-        user_content = {}
-        user_profile_content = {}
+    # def validate(self, attrs):
+    #     request_data = None
+    #     user = None
+    #     user_profile= None
+
+    #     user_fields = ['user_id', 'first_name', 'last_name']
+    #     profile_fields = ['profile_id', 'profile_pic', 'address']
+
+    #     if not attrs is None:
+
+    #         received_data = dict(attrs)
+    #         # print(f"Data received: {received_data}")
+
+    #         # test if the fields is exist in the database in the first place
+
+    #         # check if user is exist
+    #         user_is_exist = User.objects.filter(pk=int(received_data['user_id'])).exists()
+    #         if user_is_exist:
+    #             user = User.objects.filter(id__exact=int(received_data['user_id'])).values()[0]
+    #             # print(user)
+
+    #         user_profile_exist = UserProfile.objects.filter(user_id=int(received_data['user_id'])).exists()
+    #         if user_profile_exist:
+    #             user_profile = UserProfile.objects.filter(user_id=int(received_data['user_id'])).values()[0]
+    #             # user_profile.first_name = received_data['first_name']
+    #             # user_profile.last_name = received_data['last_name']
+    #             # user_profile.address = received_data['address']
+
+    #             # user_profile.save()
+    #             # profile_list = UserProfile.objects.filter(user_id__exact=int(received_data['user_id'])).values()[0]
+    #             # profile_list = UserProfile.objects.get(user_id=int(received_data['user_id']))
+    #             # update_profile = UserProfile.objects.filter(user_id__exact=int(request_data['id'])).update(last_name = "Burad(updated")
+
+
+    #             # print(update_profile)
+                
+    #             print(f"User Profile is exist")
+
+
+
+
+    #     # return {'user': user, 'user_profile': user_profile}
+
+    #     return True
+
+    # def is_valid(self):
+    #     # data = hasattr()
+    #     # print(data)
+    #     return True
+
+    # def save(self,*args, **kwarg):
+    #     # print("Save overrided")
+    #     # print(kwarg)
+    #     return "Saved"
+
+
+    def create_update(self, validated_data):
         
+        if validated_data:
+            user_id = validated_data['user_id']
+            user_exist = User.objects.filter(pk=int(validated_data['user_id'])).exists()
+            
+            if user_exist:
+                user = User.objects.get(id=int(user_id))
+                profile_exist = UserProfile.objects.filter(user_id = user_id).exists()
 
-        if attrs is not None:
-            request_data = dict(attrs)
-            print(request_data)
-            if "user_id" in request_data:
-                user = User.objects.get(id=int(request_data['user_id']))
-                print(user)
-                user.first_name = request_data['first_name']
-                user.last_name = request_data['last_name']
-                user.save()
+                if profile_exist:
+                    # If the profile is exist, we just need to perform an update here 
+                    print("exist")
+                    user_profile_fields = ['last_name', 'first_name', 'address', 'profile_pic']
+                    user_profile = UserProfile.objects.get(user_id=int(validated_data['user_id']))
+                    for i in validated_data:
+                        if i in user_profile_fields:
+                            if i == "user_profile":
+                                user_profile.i = File(validated_data[i])
+                                user_profile.save()
+                                continue
+                            user_profile.i = validated_data[i]
+                            user_profile.save()
+                            print(f"fields: {validated_data[i]}")
+                    
+                    user_profile.save()
+                    print(f"Profile Updated")
+                    # user_profile = UserProfile.objects.get(user_id=int(validated_data['user_id']))
 
-            if "profile_id" in request_data:
-                user_profile = UserProfile.objects.get(id=int(request_data['profile_id']))
-                user_profile.address = request_data['address']
-                if "profile_pic" in request_data:
-                    user_profile.profile_pic = request_data['profile_pic']  
-                user_profile.save()
+                elif not profile_exist:
+                    # perform a creation of the user profile
+                    print("Not Exist")
+                    user_profile_fields = ['last_name', 'first_name', 'address', 'profile_pic']
+                    
+                    user_profile = UserProfile.objects.create(**validated_data)
+                    user_profile.save()
 
-        return request_data
 
+                    
+                
+
+
+
+        # return super().create(validated_data)
 
 class UserSerializer(serializers.ModelSerializer):
     user_profile = UserProfileSerializer(many=False, read_only=True)
@@ -136,7 +214,8 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         user = User.objects.create(
             username=validated_data['username'],
             first_name=validated_data['first_name'],
-            last_name=validated_data['last_name']            
+            last_name=validated_data['last_name'],
+            # address= validated_data['address']         
         )
 
         user.set_password(validated_data['password'])

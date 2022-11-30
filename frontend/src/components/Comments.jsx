@@ -1,7 +1,19 @@
-import React from "react";
+import { useState } from "react";
 import avatar from "../assets/images/avatar.jpg";
 
 export default function Comments(props){
+    const [postComments, setPostComments] = useState()
+    // console.log(props);
+    const {commentText, user} = props;
+
+    const [commentUser, setCommentUser] = useState(user || null);
+
+    const [commentUserProfile, setCommentUserProfile] = useState(user?.user_profile || null);
+    const {profile_pic} = commentUserProfile?.profile_pic || avatar;
+    // console.log(user?.username)
+    // return <>
+    //     <h1>Testing mode</h1>
+    // </>
 
     return (
         <div className="row justify-content-center mb-3 shadow">
@@ -11,13 +23,13 @@ export default function Comments(props){
                         <div className="row">
                             <img
                                 // src="https://media-exp1.licdn.com/dms/image/C4D03AQEv-vwlqnX7Zw/profile-displayphoto-shrink_200_200/0/1622088978783?e=1668038400&v=beta&t=UFKCg2vcXrauuWsdrf9no_abwmTt54Nl63lsd31dV-w"
-                                src={props.user.user_profile.profile_pic || avatar}
+                                src={profile_pic || avatar}
                                 className="rounded-circle col"
                                 height="50"
                                 alt="Black and White Portrait of a Man"
                                 loading="lazy"
                                 />
-                            <p className="post-user col m-auto">{props.user.username || "Anonymous"}</p>
+                            <p className="post-user col m-auto">{user?.username || "Anonymous"}</p>
                         </div>
                         <span className="ms-auto">
                             <p 
@@ -34,7 +46,7 @@ export default function Comments(props){
                         </span>
                     </div>
                     <div className="container">
-                        <p>{props.commentText}</p>
+                        <p>{commentText}</p>
                         <a href="#" style={{textDecoration:"underline"}}>Reply</a>
                     </div>
                 </div>

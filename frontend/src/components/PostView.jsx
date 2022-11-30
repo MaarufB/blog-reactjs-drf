@@ -6,24 +6,36 @@ import { useParams } from "react-router-dom";
 import Comments from "./Comments";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import avatar from "../assets/images/avatar.jpg";
 
-const PostView = (props) => {
+export default function PostView(props){
     const baseURL = "/api";
     const { user:{user_id}, authTokens } = useContext(AuthContext);
     const {access} = authTokens;
 
     const params = useParams();
-    
     const [post, setPost] = useState(null);
     const [commentList, setCommentList] = useState([]);
-    
     const [comment, setComment] = useState({
         id: 0,
         comment_text: "",
         post: params.id,
         user: 1
-    }
-    );
+    });
+    const [userProfileImage, setUserProfileImage] = useState(null);
+    const [postUser, setPostUser] = useState(null);
+    const [userProfile, setUserProfile] = useState(() => {
+        if(post){
+            setPostUser(post?.user || null);
+            if(!userProfile){
+                setUserProfile(postUser?.user_profile);
+                if(!userProfile){
+                    setUserProfileImage(userProfile?.profile_pic || avatar)
+                }
+            }
+        }
+    })
+
     useEffect(() => {
     
 
@@ -31,7 +43,8 @@ const PostView = (props) => {
         {
             fetchPostById(params.id)
         }
-    }, []);
+        
+    }, [params.id, commentList.length]);
 
     const fetchPostById = async () => {
         await axios.get(`${baseURL}/blog/${params.id}`, {
@@ -41,15 +54,16 @@ const PostView = (props) => {
         })
             .then(response => {
                 setPost(response.data);
-                const {comments} = response.data;
-                setCommentList(comments);
+                // const {comments} = response.data;
+                // setCommentList(comments);
+                setCommentList(response.data.comments);
+                console.log(response.data)
             })
             .catch(error =>{
-                console.log(error);
+                // console.log(error);
             })
     }
 
-    console.log(user_id)
 
     const createComment = async () => {
         const formData = new FormData();
@@ -73,7 +87,7 @@ const PostView = (props) => {
             }
 
         }).catch(({response}) => {
-            console.log(response);
+            // console.log(response);
         })
     }
 
@@ -90,9 +104,6 @@ const PostView = (props) => {
         }   
     }
 
-    // const commentTest = commentList.map((item) => {
-    //     console.log(item)
-    // })
 
     return (
         <div className="container mt-4 p-3 container">
@@ -102,7 +113,8 @@ const PostView = (props) => {
                         <div className="d-flex p-2">       
                             <div className="row">
                                 <img
-                                    src="https://media-exp1.licdn.com/dms/image/C4D03AQEv-vwlqnX7Zw/profile-displayphoto-shrink_200_200/0/1622088978783?e=1668038400&v=beta&t=UFKCg2vcXrauuWsdrf9no_abwmTt54Nl63lsd31dV-w"
+                                    // src="https://media-exp1.licdn.com/dms/image/C4D03AQEv-vwlqnX7Zw/profile-displayphoto-shrink_200_200/0/1622088978783?e=1668038400&v=beta&t=UFKCg2vcXrauuWsdrf9no_abwmTt54Nl63lsd31dV-w"
+                                    src={post?.user?.user_profile?.profile_pic}
                                     className="rounded-circle col"
                                     height="32"
                                     alt="Black and White Portrait of a Man"
@@ -129,7 +141,7 @@ const PostView = (props) => {
                                 // maxHeight:"50vh"
                             }}>
                                <img className="img-fluid border" 
-                                    src={post.image} 
+                                    src={post?.image} 
                                     alt="post"
                                     loading="lazy"
                                     // height="320"
@@ -137,8 +149,8 @@ const PostView = (props) => {
                                  />
                             </div>
                             <div className="col-12 mt-3">
-                                <h2 className="fw-bold mb-4">{post.post_title}</h2>
-                                <p>{post.body}</p>
+                                <h2 className="fw-bold mb-4">{post?.post_title}</h2>
+                                <p>{post?.body}</p>
                             </div>
                         </div>
 
@@ -160,7 +172,7 @@ const PostView = (props) => {
                             </div>
                             <div className="container mt-3 mb-3">
                                 <h2 className="text-center">Comments</h2>
-                                {commentList.map(({id, comment_text, user})=> (
+                                {commentList.map(({id, comment_text, user}) => (
                                     <Comments 
                                         // key={item.id}
                                         // commentText={item.comment_text}
@@ -179,5 +191,5 @@ const PostView = (props) => {
         </div>
     )
 }
-export default PostView;
+// export default PostView;
 
